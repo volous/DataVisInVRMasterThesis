@@ -53,9 +53,10 @@ public class csvReader : MonoBehaviour
 
             if (i == 0)
             {
-                for (int j = 0; j < 1; j++)
+                for (int j = 0; j < numCols; j++)
                 {
-                    headers[i] = values[j];
+                    
+                    headers[j] = values[j];
                 }
             }
             else
