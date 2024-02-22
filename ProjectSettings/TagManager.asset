@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Portal
+  - TimeCodeButton
+  - ExitTriggerBox
   layers:
   - Default
   - TransparentFX
@@ -11,6 +14,8 @@ TagManager:
   - 
   - Water
   - UI
+  - InnerSphere
+  - TimeCodeLayer
   - 
   - 
   - 
@@ -34,9 +39,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Teleport
   m_SortingLayers:
   - name: Default
     uniqueID: 0
