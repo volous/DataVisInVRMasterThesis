@@ -34,6 +34,7 @@ public class DataPointsRenderer : MonoBehaviour
         _dataArray = dataArray;
         _featureSelectionNumber = 0;
         
+        
         BeginRendering();
     }
 
