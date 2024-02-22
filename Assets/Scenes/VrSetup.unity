@@ -1982,7 +1982,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 86.82
+  far clip plane: 1000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -2155,13 +2155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7986ae76752fd34d93faa8700044617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  micForAudioSourceClient: {fileID: 0}
-  FILENAME: 
-  outputRate: 0
-  headerSize: 44
-  fileName: 
-  recOutput: 0
-  tempDataSource: []
 --- !u!1 &1335902019
 GameObject:
   m_ObjectHideFlags: 0
@@ -2441,13 +2434,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345f3472074ea9345ba7113f04619b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blinkSpeed: 4
-  spriteRenderer: {fileID: 0}
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
