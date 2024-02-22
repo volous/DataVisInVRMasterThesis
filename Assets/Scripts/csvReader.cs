@@ -22,18 +22,13 @@ public class csvReader : MonoBehaviour
         string[] headers;
         string[,] dataArray = ReadCSVFile(path, out headers);
         
-        for (int i = 0; i < headers.Length; i++)
-        {
-            Debug.Log(headers[i]);
-        }
-        
-        InstaciateCubes(dataArray);
+        InstaciateCubes(dataArray, headers);
         
     }
     
-    void InstaciateCubes(string[,] dataArray)
+    void InstaciateCubes(string[,] dataArray, string[] headers)
     {
-        DPR.ReciveDataMatrix(dataArray);
+        DPR.ReciveDataMatrix(dataArray, headers);
     }
 
     string[,] ReadCSVFile(string path, out string[] headers)

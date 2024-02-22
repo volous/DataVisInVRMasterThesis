@@ -2089,6 +2089,13 @@ MonoBehaviour:
   _mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   _material: {fileID: 2100000, guid: 9e3c83d2d8eca554fa9d5f5b9ac9fb25, type: 2}
   transparency: 1
+  posX: Size
+  posY: Weight
+  posZ: Sweetness
+  scale: Crunchiness
+  colR: Juiciness
+  colG: Ripeness
+  colB: Acidity
 --- !u!114 &1253388717
 MonoBehaviour:
   m_ObjectHideFlags: 0
