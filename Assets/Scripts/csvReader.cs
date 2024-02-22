@@ -5,36 +5,31 @@ using System.IO;
 
 public class csvReader : MonoBehaviour
 {
-    private DataPointsRenderer DPR;
+    private DataPointsRenderer DPR; // DataPointsRenderer is a class for handeling the visualization of the data
     void Start()
     {
-        DPR = this.gameObject.GetComponent<DataPointsRenderer>();
+        DPR = this.gameObject.GetComponent<DataPointsRenderer>(); // find the DPR class, located on this gameobject
     }
 
-    [ContextMenu("Start Read CSV")]
-    public void StartRead()
+    [ContextMenu("Start Read CSV")] // alowes for the function to run from the editor
+    public void StartRead() 
     {
-        string path = Application.dataPath + "\\CSVs\\file.csv";
+        string path = Application.dataPath + "\\CSVs\\file.csv"; // the path location to the file called file, in the CVSs folder in the assets folder
         
-        // Read the CSV file and create the array
-        string[] headers;
-        string[,] dataArray = ReadCSVFile(path, out headers);
         
-        InstaciateCubes(dataArray, headers);
+        string[] headers; // array of strings for the top line, aka the headers
+        string[,] dataArray = ReadCSVFile(path, out headers); // a string Matrix for the rest of the data file
+        
+        DPR.ReciveDataMatrix(dataArray, headers); // calles the rendering function in the DataRenderer
         
     }
     
-    void InstaciateCubes(string[,] dataArray, string[] headers)
+    string[,] ReadCSVFile(string path, out string[] headers) // function for reading the CSV file
     {
-        DPR.ReciveDataMatrix(dataArray, headers);
-    }
-
-    string[,] ReadCSVFile(string path, out string[] headers)
-    {
-        string[] lines = File.ReadAllLines(path);
+        string[] lines = File.ReadAllLines(path); // an array of all rows and all text in them exe: (patient0,123,4,56,yes,78,true,9)
 
         // Assuming that the CSV file has rows and columns
-        int numRows = lines.Length;
+        int numRows = lines.Length; // number of
         int numCols = lines[0].Split(',').Length;
 
         headers = new string[numCols];
