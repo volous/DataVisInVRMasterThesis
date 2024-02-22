@@ -5,8 +5,6 @@ using System.IO;
 
 public class csvReader : MonoBehaviour
 {
-    public string csvFilePath; // Specify the path to your CSV file
-    
     private DataPointsRenderer DPR;
     void Start()
     {
@@ -16,7 +14,7 @@ public class csvReader : MonoBehaviour
     [ContextMenu("Start Read CSV")]
     public void StartRead()
     {
-        string path = csvFilePath + "\\file.csv";
+        string path = Application.dataPath + "\\CSVs\\file.csv";
         
         // Read the CSV file and create the array
         string[] headers;

@@ -149,11 +149,4 @@ public class DataPointsRenderer : MonoBehaviour
                 false, false);
         }
     }
-
-    [ContextMenu("Feature Selection Change")]
-    private void FeatureDisplaySelection()
-    {
-        _featureSelectionNumber++;
-        BeginRendering();
-    }
 }
