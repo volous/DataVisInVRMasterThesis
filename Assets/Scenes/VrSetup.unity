@@ -2101,7 +2101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac98275789321a7478642ec7a4c66d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvFilePath: C:\UNI\10.Semester\VRdataMining\Assets\CSVs
+  csvFilePath: C:\UNI\10.Semester\DataVisInVRMasterThesis\Assets\CSVs
 --- !u!1 &1328133228
 GameObject:
   m_ObjectHideFlags: 0
