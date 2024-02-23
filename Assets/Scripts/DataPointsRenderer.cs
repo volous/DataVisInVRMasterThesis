@@ -41,7 +41,7 @@ public class DataPointsRenderer : MonoBehaviour
         _featureSelectionNumber = 0;
     }
 
-    public void ReciveFeatures(string[] features)
+    public void ReceiveFeatures(string[] features)
     {
         posX = features[0];
         posY = features[1];
