@@ -11,6 +11,8 @@ public class DataPointsRenderer : MonoBehaviour
     [SerializeField] private Material _material;
     [Range(0,1)] public float transparency;
 
+    public HeaderDispUI headerDispUI;
+    
     [Header("Dimentions")] 
     public string posX;
     public string posY;
@@ -19,7 +21,7 @@ public class DataPointsRenderer : MonoBehaviour
     public string colR;
     public string colG;
     public string colB;
-
+    
     private string[,] _dataArray;
     private string[] _headers;
     private RenderParams _rp;
@@ -31,7 +33,8 @@ public class DataPointsRenderer : MonoBehaviour
     private Material[] _materials;
 
     private int _featureSelectionNumber;
-
+    
+    
     private void Start()
     {
         _isRunning = false;
@@ -66,6 +69,8 @@ public class DataPointsRenderer : MonoBehaviour
     {
         _isRunning = true;
 
+        headerDispUI.ReceiveFeatures(_headers);
+        
         int nRows = _dataArray.GetLength(0) - 1;
         int nFeatures = _dataArray.GetLength(1);
 

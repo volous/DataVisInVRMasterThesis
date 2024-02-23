@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class HeaderDispUI : MonoBehaviour
 {
     //String array for getting names of headers/features
-    public List<string> featureList = new List<string>();
+    private string[] featureList;
 
     //get canvas
     [SerializeField] private Canvas _handUICanvas;
@@ -19,11 +19,11 @@ public class HeaderDispUI : MonoBehaviour
     private void InitFeatureOnCanvas()
     {
         List<Button> _newFeatureList = new List<Button>();
-        if (featureList.Count != 0)
+        if (featureList.Length != 0)
         {
             float xMult = 1;
             int ySub = 0;
-            for (int i = 0; i < featureList.Count; i++)
+            for (int i = 0; i < featureList.Length; i++)
             {
                 
                 //create objects based on how many features there are in the string list
@@ -42,9 +42,11 @@ public class HeaderDispUI : MonoBehaviour
             }
         }
     }
-    
-    private void Start()
+
+    public void ReceiveFeatures(string[] receivedFeatures)
     {
+        featureList = new string[receivedFeatures.Length];
+        featureList = receivedFeatures;
         InitFeatureOnCanvas();
     }
 }
