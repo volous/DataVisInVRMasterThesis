@@ -1,6 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Random = UnityEngine.Random;
 
@@ -24,22 +25,13 @@ public class DataPointsRenderer : MonoBehaviour
     
     private string[,] _dataArray;
     private string[] _headers;
-    private RenderParams _rp;
     private bool _isRunning;
     private Vector3[] _position;
     private float[] _scales;
     private Mesh[] _meshes;
     private Color[] _colors;
     private Material[] _materials;
-
-    private int _featureSelectionNumber;
     
-    
-    private void Start()
-    {
-        _isRunning = false;
-        _featureSelectionNumber = 0;
-    }
 
     public void ReceiveFeatures(string[] features)
     {
@@ -56,8 +48,7 @@ public class DataPointsRenderer : MonoBehaviour
     {
         _dataArray = dataArray;
         _headers = headers;
-        _featureSelectionNumber = 0;
-        
+
         BeginRendering();
     }
 
@@ -78,22 +69,16 @@ public class DataPointsRenderer : MonoBehaviour
 
     private void BeginRendering()
     {
-        _isRunning = true;
-
         headerDispUI.ReceiveFeatures(_headers);
-        
+
         int nRows = _dataArray.GetLength(0) - 1;
         int nFeatures = _dataArray.GetLength(1);
-
-        _featureSelectionNumber = _featureSelectionNumber >= nFeatures ? 0 : _featureSelectionNumber;
 
         _position = new Vector3[nRows];
         _scales = new float[nRows];
         _meshes = new Mesh[nRows];
         _colors = new Color[nRows];
         _materials = new Material[nRows];
-
-        _rp = new RenderParams(_material);
 
         // positions
         for (int row = 1; row < nRows; row++)
