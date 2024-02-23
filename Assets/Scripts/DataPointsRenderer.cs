@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 using System.Collections;
@@ -22,7 +23,7 @@ public class DataPointsRenderer : MonoBehaviour
     public string colR;
     public string colG;
     public string colB;
-    
+
     private string[,] _dataArray;
     private string[] _headers;
     private bool _isRunning;
@@ -31,7 +32,12 @@ public class DataPointsRenderer : MonoBehaviour
     private Mesh[] _meshes;
     private Color[] _colors;
     private Material[] _materials;
-    
+
+
+    private void Start()
+    {
+        _isRunning = false;
+    }
 
     public void ReceiveFeatures(string[] features)
     {
@@ -46,6 +52,8 @@ public class DataPointsRenderer : MonoBehaviour
 
     public void ReciveDataMatrix(string[,] dataArray, string[] headers)
     {
+        _isRunning = true;
+        
         _dataArray = dataArray;
         _headers = headers;
 
@@ -83,7 +91,7 @@ public class DataPointsRenderer : MonoBehaviour
         // positions
         for (int row = 1; row < nRows; row++)
         {
-            _position[row] = new Vector3(
+            _position[row-1] = new Vector3(
                 float.Parse(_dataArray[row, FeatureBasedOnHeader(posX)]) * RederingArea,
                 float.Parse(_dataArray[row, FeatureBasedOnHeader(posY)]) * RederingArea,
                 float.Parse(_dataArray[row, FeatureBasedOnHeader(posZ)]) * RederingArea
