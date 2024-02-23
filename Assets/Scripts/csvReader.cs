@@ -17,9 +17,9 @@ public class csvReader : MonoBehaviour
         string path = Application.dataPath + "\\CSVs\\file.csv"; // the path location to the file called file, in the CVSs folder in the assets folder
         
         string[] headers; // array of strings for the top line, aka the headers
-        string[,] dataArray = ReadCSVFile(path, out headers); // a string Matrix for the rest of the data file
+        string[,] dataMatrix = ReadCSVFile(path, out headers); // a string Matrix for the rest of the data file
         
-        DPR.ReciveDataMatrix(dataArray, headers); // calles the rendering function in the DataRenderer
+        DPR.ReciveDataMatrix(dataMatrix, headers); // calles the rendering function in the DataRenderer
         
     }
     
@@ -32,7 +32,7 @@ public class csvReader : MonoBehaviour
         int numCols = lines[0].Split(',').Length;
 
         headers = new string[numCols];
-        string[,] dataArray = new string[numRows, numCols];
+        string[,] dataMatrix = new string[numRows, numCols];
 
         for (int i = 0; i < numRows; i++)
         {
@@ -42,7 +42,6 @@ public class csvReader : MonoBehaviour
             {
                 for (int j = 0; j < numCols; j++)
                 {
-                    
                     headers[j] = values[j];
                 }
             }
@@ -50,13 +49,11 @@ public class csvReader : MonoBehaviour
             {
                 for (int j = 0; j < numCols; j++)
                 {
-                    dataArray[i-1, j] = values[j];
+                    dataMatrix[i-1, j] = values[j];
                 }
             }
-            
-            
         }
         
-        return dataArray;
+        return dataMatrix;
     }
 }
