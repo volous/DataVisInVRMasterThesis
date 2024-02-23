@@ -16,7 +16,6 @@ public class csvReader : MonoBehaviour
     {
         string path = Application.dataPath + "\\CSVs\\file.csv"; // the path location to the file called file, in the CVSs folder in the assets folder
         
-        
         string[] headers; // array of strings for the top line, aka the headers
         string[,] dataArray = ReadCSVFile(path, out headers); // a string Matrix for the rest of the data file
         

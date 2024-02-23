@@ -151,6 +151,7 @@ public class DataPointsRenderer : MonoBehaviour
     private void Update()
     {
         if (!_isRunning) return;
+        
         for (int i = 0; i < _position.Length; i++)
         {
             // Draw the mesh with the specified scale
