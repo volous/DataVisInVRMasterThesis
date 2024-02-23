@@ -41,6 +41,17 @@ public class DataPointsRenderer : MonoBehaviour
         _featureSelectionNumber = 0;
     }
 
+    public void ReciveFeatures(string[] features)
+    {
+        posX = features[0];
+        posY = features[1];
+        posZ = features[2];
+        scale = features[3];
+        colR = features[4];
+        colG = features[5];
+        colB = features[6];
+    }
+
     public void ReciveDataMatrix(string[,] dataArray, string[] headers)
     {
         _dataArray = dataArray;
