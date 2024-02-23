@@ -79,7 +79,7 @@ public class DataPointsRenderer : MonoBehaviour
     {
         headerDispUI.ReceiveFeatures(_headers);
 
-        int nRows = _dataArray.GetLength(0) - 1;
+        int nRows = _dataArray.GetLength(0);
         int nFeatures = _dataArray.GetLength(1);
 
         _position = new Vector3[nRows];
@@ -89,9 +89,9 @@ public class DataPointsRenderer : MonoBehaviour
         _materials = new Material[nRows];
 
         // positions
-        for (int row = 1; row < nRows; row++)
+        for (int row = 0; row < nRows; row++)
         {
-            _position[row-1] = new Vector3(
+            _position[row] = new Vector3(
                 float.Parse(_dataArray[row, FeatureBasedOnHeader(posX)]) * RederingArea,
                 float.Parse(_dataArray[row, FeatureBasedOnHeader(posY)]) * RederingArea,
                 float.Parse(_dataArray[row, FeatureBasedOnHeader(posZ)]) * RederingArea
