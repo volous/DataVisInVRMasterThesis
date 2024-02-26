@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class HeaderDispUI : MonoBehaviour
 {
+    public FeatureGrabbing featureGrabbing;
+    
     //String array for getting names of headers/features
     private string[] featureList;
 
@@ -31,6 +33,8 @@ public class HeaderDispUI : MonoBehaviour
                 _newFeature.transform.SetParent(_handUICanvas.transform, false);
                 //text on button is set to the list of features
                 _newFeature.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = featureList[i];
+                _newFeature.name = featureList[i];
+                _newFeature.onClick.AddListener(() => featureGrabbing.ChosenButton(_newFeature));
                 _newFeatureList.Add(_newFeature);
                 //set positions, if amount of features is 9(some amount) or greater, start moving the features in the x direction
                 if (i % 9 == 0 && i!=0)

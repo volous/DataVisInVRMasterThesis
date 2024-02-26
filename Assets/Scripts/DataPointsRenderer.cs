@@ -52,11 +52,16 @@ public class DataPointsRenderer : MonoBehaviour
 
     public void ReciveDataMatrix(string[,] dataArray, string[] headers)
     {
-        _isRunning = true;
-        
         _dataArray = dataArray;
         _headers = headers;
+        
+        headerDispUI.ReceiveFeatures(_headers);
+        //BeginRendering();
+    }
 
+    public void ReciveDataMatrix( string[] headers)
+    {
+        ReceiveFeatures(headers);
         BeginRendering();
     }
 
@@ -75,13 +80,13 @@ public class DataPointsRenderer : MonoBehaviour
         return r; // this means that no header is matching. THis should never happen and it means there is an error
     }
 
-    private void BeginRendering()
+    public void BeginRendering()
     {
-        headerDispUI.ReceiveFeatures(_headers);
-
-        int nRows = _dataArray.GetLength(0);
+        _isRunning = true;
+ 
+        int nRows = _dataArray.GetLength(0) -1;
         int nFeatures = _dataArray.GetLength(1);
-
+        
         _position = new Vector3[nRows];
         _scales = new float[nRows];
         _meshes = new Mesh[nRows];
