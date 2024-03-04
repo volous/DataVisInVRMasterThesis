@@ -13,7 +13,7 @@ public class DataPointsRenderer : MonoBehaviour
     [SerializeField] private Material _material;
     [Range(0,1)] public float transparency;
 
-    public HeaderDispUI headerDispUI;
+    public FeatureObjectsHandeler featureObjectsHandeler;
     
     [Header("Dimentions")] 
     public string posX;
@@ -55,7 +55,7 @@ public class DataPointsRenderer : MonoBehaviour
         _dataArray = dataArray;
         _headers = headers;
         
-        headerDispUI.ReceiveFeatures(_headers);
+        featureObjectsHandeler.ReciveFeatureString(_headers);
         //BeginRendering();
     }
 
