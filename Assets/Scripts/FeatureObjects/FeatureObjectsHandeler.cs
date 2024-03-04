@@ -49,8 +49,13 @@ public class FeatureObjectsHandeler : MonoBehaviour
 
             GameObject newInteractionCube = Instantiate(featureInteractionCube, newPosition,
                 featureInteractionCube.transform.rotation);
+
+            newInteractionCube.name = _featureStrings[featureString];
             
-            newInteractionCube.GetComponent<FeatureObject>().boardPosition = newPosition;
+            FeatureObject featureObject = newInteractionCube.GetComponent<FeatureObject>();
+            featureObject.boardPosition = newPosition;
+            featureObject.feature = newInteractionCube.name;
+            
         }
     }
 

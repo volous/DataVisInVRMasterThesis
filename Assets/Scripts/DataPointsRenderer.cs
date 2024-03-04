@@ -85,7 +85,7 @@ public class DataPointsRenderer : MonoBehaviour
         _isRunning = true;
  
         int nRows = _dataArray.GetLength(0) -1;
-        int nFeatures = _dataArray.GetLength(1);
+        int nFeatures = _dataArray.GetLength(1)-1;
         
         _position = new Vector3[nRows];
         _scales = new float[nRows];
