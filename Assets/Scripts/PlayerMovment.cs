@@ -11,6 +11,8 @@ public class PlayerMovment : MonoBehaviour
     public float movSpeed = 1;
     [SerializeField] private GameObject _controllerObject;
     [SerializeField] private Transform _facePos;
+    [SerializeField] private GameObject _selectedReference;
+    
 
     private bool _isMoving = false;
     
@@ -22,11 +24,11 @@ public class PlayerMovment : MonoBehaviour
 
     private void Update()
     {
+        
         if (_isMoving)
         {
-            Vector3 _direction = (_controllerObject.transform.position - _facePos.position).normalized;
+            Vector3 _direction = (_controllerObject.transform.position - _selectedReference.transform.position);
             transform.Translate(_direction * Time.deltaTime * movSpeed);
-            
 
             // Vector3 _direction = (_controllerObject.transform.localPosition - _facePos.position);
             // Vector3 _newPosition = _direction + transform.position;
@@ -50,8 +52,8 @@ public class PlayerMovment : MonoBehaviour
         // Your code here
         //Debug.Log("Trigger pressed!");
         _isMoving = true;
-        
-        
+        _selectedReference.transform.position = _controllerObject.transform.position;
+
     }
     // Input action callback
     public void OnTriggerPress(InputAction.CallbackContext context)
