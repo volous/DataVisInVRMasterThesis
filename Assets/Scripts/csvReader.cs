@@ -9,6 +9,7 @@ public class csvReader : MonoBehaviour
     void Start()
     {
         DPR = this.gameObject.GetComponent<DataPointsRenderer>(); // find the DPR class, located on this gameobject
+        StartRead();
     }
 
     [ContextMenu("Start Read CSV")] // alowes for the function to run from the editor

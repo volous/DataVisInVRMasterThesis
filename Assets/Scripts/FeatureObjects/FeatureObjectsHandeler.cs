@@ -5,8 +5,10 @@ using UnityEngine;
 public class FeatureObjectsHandeler : MonoBehaviour
 {
     public GameObject featureInteractionCube;
+    public Vector3 firstPosition;
+    public GameObject featureBoard;
 
-    [Header("Positioning Varables")] 
+        [Header("Positioning Varables")] 
     public float xSpacing;
     public float ySpacing;
     public int numberOfFeaturesOnY;
@@ -30,7 +32,7 @@ public class FeatureObjectsHandeler : MonoBehaviour
         int xMultyplier = 0;
         int yMultyplier = 0;
 
-        Vector3 firstFeaturePosition = featureInteractionCube.transform.position;
+        Vector3 firstFeaturePosition = firstPosition;
         
         for (int featureString = 0; featureString < _featureStrings.Length; featureString++)
         {
@@ -47,13 +49,16 @@ public class FeatureObjectsHandeler : MonoBehaviour
 
             yMultyplier++;
 
-            GameObject newInteractionCube = Instantiate(featureInteractionCube, newPosition,
-                featureInteractionCube.transform.rotation);
+            GameObject newInteractionCube = Instantiate(featureInteractionCube);
 
+            newInteractionCube.transform.SetParent(featureBoard.transform);
             newInteractionCube.name = _featureStrings[featureString];
+            newInteractionCube.transform.localPosition = newPosition;
             
             FeatureObject featureObject = newInteractionCube.GetComponent<FeatureObject>();
             featureObject.boardPosition = newPosition;
+            featureObject.boardScaler = newInteractionCube.transform.localScale;
+            featureObject.SetText(_featureStrings[featureString]);
             featureObject.feature = newInteractionCube.name;
             
         }
