@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.XR.Interaction.Toolkit.UI;
 
 
 public class csvCleaner : MonoBehaviour
@@ -21,7 +22,6 @@ public class csvCleaner : MonoBehaviour
 
         string[] headers;
         string[,] dataMatrix = ReadCSVFile(path, out headers);
-        
         ParseData(dataMatrix);
     }
 
@@ -80,16 +80,101 @@ public class csvCleaner : MonoBehaviour
 
     public void CheckHandleNull(float[,] _data)
     {
-        foreach (var value in _data)
+        Debug.Log(_data[3,2]);
+        int nRows = _data.GetLength(0) - 1;
+        int nCols = _data.GetLength(1) - 1;
+        for (int i = 0; i < nRows; i++)
         {
-            if (value == 0 || value == null)
+            for (int j = 0; j < nCols; j++)
             {
+                if (float.IsNaN(_data[i, j]))
+                {
+                    _data[i, j] = FindMode(_data);
+                }
                 
             }
         }
+        Debug.Log(_data[3,2]);
+        NormalizeData(_data);
     }
 
+    float FindMode(float[,] _data)
+    {
+        Dictionary<float, int> valCounts = new Dictionary<float, int>();
+
+        foreach (float value in _data)
+        {
+            if (valCounts.ContainsKey(value)) valCounts[value]++;
+            else valCounts[value] = 1;
+        }
+
+        float mode = 0;
+        int count = 0;
+        foreach (KeyValuePair<float, int> vals in valCounts)
+        {
+            mode = vals.Key;
+            count = vals.Value;
+        }
+
+        return mode;
+    }
+
+    public void NormalizeData(float[,] _data)
+    {
+
+        int rows = _data.GetLength(0);
+        int cols = _data.GetLength(1);
+        
+        float[] minValues = new float[cols];
+        float[] maxValues = new float[cols];
+        
+        for (int j = 0; j < cols; j++)
+        {
+            minValues[j] = _data[0, j];
+            maxValues[j] = _data[0, j];
+
+            for (int i = 1; i < rows; i++)
+            {
+                minValues[j] = Mathf.Min(minValues[j], _data[i, j]);
+                maxValues[j] = Mathf.Max(maxValues[j], _data[i, j]);
+            }
+        }
+
+        for (int j = 0; j < cols; j++)
+        {
+            float columnMin = minValues[j];
+            float columnMax = maxValues[j];
+
+            for (int i = 0; i < rows; i++)
+            {
+                _data[i, j] = (_data[i, j] - columnMin) / (columnMax - columnMin);
+            }
+        }
+        SaveMatrixToCSV(_data, Application.dataPath + "\\ModifiedCSVs\\" + selectedFile.name + ".csv");
+    }
     
+    public void SaveMatrixToCSV(float[,] matrix, string filePath)
+    {
+        int rows = matrix.GetLength(0);
+        int cols = matrix.GetLength(1);
+
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                string[] rowData = new string[cols];
+                for (int j = 0; j < cols; j++)
+                {
+                    rowData[j] = matrix[i, j].ToString();
+                }
+                writer.WriteLine(string.Join(",", rowData));
+            }
+        }
+
+        Debug.Log("Matrix saved to CSV: " + filePath);
+    }
+
+
     string[,] ReadCSVFile(string path, out string[] headers) // function for reading the CSV file
     {
         string[] lines = File.ReadAllLines(path); // an array of all rows and all text in them exe: (patient0,123,4,56,yes,78,true,9)
