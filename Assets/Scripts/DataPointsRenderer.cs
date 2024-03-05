@@ -38,6 +38,11 @@ public class DataPointsRenderer : MonoBehaviour
         _isRunning = false;
     }
 
+    public void SetIsRunning(bool state)
+    {
+        _isRunning = state;
+    }
+
     public void ReceiveFeatures(string[] features)
     {
         posX = features[0];
@@ -103,7 +108,7 @@ public class DataPointsRenderer : MonoBehaviour
         //scales
         for (int row = 0; row < nRows; row++)
         {
-            _scales[row] = float.Parse(_dataArray[row, FeatureBasedOnHeader(scale)]) * size;
+            _scales[row] = (float.Parse(_dataArray[row, FeatureBasedOnHeader(scale)]) + 0.05f) * size;
         }
 
         //Meshes
