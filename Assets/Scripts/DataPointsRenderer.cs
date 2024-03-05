@@ -13,6 +13,7 @@ public class DataPointsRenderer : MonoBehaviour
     [SerializeField] private Material _material;
     [Range(0,1)] public float transparency;
 
+    public float size = 1;
     public FeatureObjectsHandeler featureObjectsHandeler;
     
     [Header("Dimentions")] 
@@ -102,7 +103,7 @@ public class DataPointsRenderer : MonoBehaviour
         //scales
         for (int row = 0; row < nRows; row++)
         {
-            _scales[row] = float.Parse(_dataArray[row, FeatureBasedOnHeader(scale)]);
+            _scales[row] = float.Parse(_dataArray[row, FeatureBasedOnHeader(scale)]) * size;
         }
 
         //Meshes
@@ -147,7 +148,7 @@ public class DataPointsRenderer : MonoBehaviour
     Color RainbowColorFromFloat(float value)
     {
         // Hue goes from 0 to 1, representing the entire color spectrum
-        float hue = value;
+        float hue = value / 2; // devided by 2 becous hue is a circle, so 0 and 1 would be the same color
 
         // Saturation and value are set to 1 for full color intensity
         float saturation = 1f;
@@ -155,7 +156,6 @@ public class DataPointsRenderer : MonoBehaviour
 
         // Convert HSV to RGB
         Color rainbowColor = Color.HSVToRGB(hue, saturation, valueIntensity);
-
         return rainbowColor;
     }
 

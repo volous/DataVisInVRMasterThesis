@@ -47,8 +47,15 @@ public class FeatureObject : MonoBehaviour
         return feature;
     }
 
+    public void Grabed()
+    {
+        gameObject.GetComponent<Collider>().isTrigger = true;
+    }
+
     public void LetGoOfObject()
     {
+        gameObject.GetComponent<Collider>().isTrigger = false;
+        
         transform.localPosition = boardPosition;
         transform.localScale = boardScaler;
         transform.localRotation = new Quaternion(0, 0, 0, 0);
@@ -57,10 +64,15 @@ public class FeatureObject : MonoBehaviour
         {
             _isInUse = true;
             gameObject.GetComponent<XRGrabInteractable>().enabled = false;
+
+            DimentionObject collitionDimentionObject = _currentCollisionObject.GetComponent<DimentionObject>();
             
-            dimentionSelectionHandeler.AssignChoice(feature, int.Parse(_currentCollisionObject.name));
-            _currentCollisionObject.GetComponent<Renderer>().material.color = Color.green;
-            _currentCollisionObject.GetComponent<DimentionObject>().AssignFeature(this);
+            dimentionSelectionHandeler.AssignChoice(feature, collitionDimentionObject.ID);
+            foreach (Renderer childRenderer in _currentCollisionObject.GetComponentsInChildren<Renderer>())
+            {
+                childRenderer.material.color = Color.green;
+            }
+            collitionDimentionObject.AssignFeature(this);
         }
     }
 
@@ -82,10 +94,12 @@ public class FeatureObject : MonoBehaviour
     {
         if (other.CompareTag("DimentionCollider"))
         {
-            Color color = other.GetComponent<Renderer>().material.color;
+            Color color = other.GetComponentInChildren<Renderer>().material.color;
             color.a = 0.5f;
-            other.GetComponent<Renderer>().material.color = color;
-            
+            foreach (Renderer childRenderer in other.GetComponentsInChildren<Renderer>())
+            {
+                childRenderer.material.color = color;
+            }
             _currentCollisionObject = other.gameObject;
         }
     }
@@ -94,10 +108,12 @@ public class FeatureObject : MonoBehaviour
     {
         if (other.CompareTag("DimentionCollider"))
         {
-            Color color = other.GetComponent<Renderer>().material.color;
+            Color color = other.GetComponentInChildren<Renderer>().material.color;
             color.a = 1;
-            other.GetComponent<Renderer>().material.color = color;
-
+            foreach (Renderer childRenderer in other.GetComponentsInChildren<Renderer>())
+            {
+                childRenderer.material.color = color;
+            }
             _currentCollisionObject = null;
         }
     }

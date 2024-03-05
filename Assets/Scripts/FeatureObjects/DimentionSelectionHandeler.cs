@@ -32,7 +32,6 @@ public class DimentionSelectionHandeler : MonoBehaviour
             }
                 
         }
-        Debug.Log(_dimentions.Length);
         DPR.ReciveDataMatrix(_dimentions);
     }
 }
