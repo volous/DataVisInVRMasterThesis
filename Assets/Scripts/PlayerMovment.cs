@@ -29,13 +29,6 @@ public class PlayerMovment : MonoBehaviour
         {
             Vector3 _direction = (_controllerObject.transform.position - _selectedReference.transform.position);
             transform.Translate(_direction * Time.deltaTime * movSpeed);
-
-            // Vector3 _direction = (_controllerObject.transform.localPosition - _facePos.position);
-            // Vector3 _newPosition = _direction + transform.position;
-            // //transform.Translate(_direction  * movSpeed * Time.deltaTime);
-            // transform.position += _direction * movSpeed * Time.deltaTime;
-            // // Debug.Log("controller" + _controllerObject.transform.position);
-            // // Debug.Log("rig" + transform.position);
         }
         
     }
@@ -53,6 +46,15 @@ public class PlayerMovment : MonoBehaviour
         //Debug.Log("Trigger pressed!");
         _isMoving = true;
         _selectedReference.transform.position = _controllerObject.transform.position;
+        _selectedReference.SetActive(true);
+
+    }
+    
+    private void ReleaseFunction()
+    {
+        //Debug.Log("Trigger Released!");
+        _isMoving = false;
+        _selectedReference.SetActive(false);
 
     }
     // Input action callback
@@ -63,12 +65,7 @@ public class PlayerMovment : MonoBehaviour
             TriggerFunction();
         }
     }
-    private void ReleaseFunction()
-    {
-        //Debug.Log("Trigger Released!");
-        _isMoving = false;
-
-    }
+    
     public void OnTriggerRelease(InputAction.CallbackContext context)
     {
         if (context.canceled)
