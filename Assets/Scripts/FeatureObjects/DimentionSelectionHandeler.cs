@@ -11,7 +11,7 @@ public class DimentionSelectionHandeler : MonoBehaviour
 
     private void Start()
     {
-        _dimentions = new string[7];
+        _dimentions = new string[5];
     }
     
 

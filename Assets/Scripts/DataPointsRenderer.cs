@@ -20,9 +20,7 @@ public class DataPointsRenderer : MonoBehaviour
     public string posY;
     public string posZ;
     public string scale;
-    public string colR;
-    public string colG;
-    public string colB;
+    public string col;
 
     private string[,] _dataArray;
     private string[] _headers;
@@ -45,9 +43,7 @@ public class DataPointsRenderer : MonoBehaviour
         posY = features[1];
         posZ = features[2];
         scale = features[3];
-        colR = features[4];
-        colG = features[5];
-        colB = features[6];
+        col = features[4];
     }
 
     public void ReciveDataMatrix(string[,] dataArray, string[] headers)
@@ -136,12 +132,7 @@ public class DataPointsRenderer : MonoBehaviour
         // Colors
         for (int row = 0; row < nRows; row++)
         {
-            _colors[row] = new Color(
-                float.Parse(_dataArray[row, FeatureBasedOnHeader(colR)]) * 2,
-                float.Parse(_dataArray[row, FeatureBasedOnHeader(colG)]) * 2,
-                float.Parse(_dataArray[row, FeatureBasedOnHeader(colB)]) * 2,
-                transparency
-            );
+            _colors[row] = RainbowColorFromFloat(float.Parse(_dataArray[row, FeatureBasedOnHeader(col)]));
         }
 
         // Materials
@@ -151,6 +142,21 @@ public class DataPointsRenderer : MonoBehaviour
             nMat.color = _colors[row];
             _materials[row] = nMat;
         }
+    }
+    
+    Color RainbowColorFromFloat(float value)
+    {
+        // Hue goes from 0 to 1, representing the entire color spectrum
+        float hue = value;
+
+        // Saturation and value are set to 1 for full color intensity
+        float saturation = 1f;
+        float valueIntensity = 1f;
+
+        // Convert HSV to RGB
+        Color rainbowColor = Color.HSVToRGB(hue, saturation, valueIntensity);
+
+        return rainbowColor;
     }
 
     private void Update()
