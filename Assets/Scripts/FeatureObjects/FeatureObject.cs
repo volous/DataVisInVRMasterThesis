@@ -24,7 +24,7 @@ public class FeatureObject : MonoBehaviour
 
     private void Start()
     {
-        
+        boardPosition = gameObject.transform.localPosition;
         _meshRenderer = gameObject.GetComponent<MeshRenderer>();
         _startingMaterial = _meshRenderer.material;
         dimentionSelectionHandeler = GameObject.Find("DimentionSelectionHandeler").GetComponent<DimentionSelectionHandeler>();
@@ -42,9 +42,19 @@ public class FeatureObject : MonoBehaviour
         gameObject.GetComponent<XRGrabInteractable>().enabled = true;
     }
 
+    public void ReturnToBoardPosition()
+    {
+        transform.localPosition = boardPosition;
+    }
+
     public string GetFeature()
     {
         return feature;
+    }
+
+    public void UnAsignDimention(int ID)
+    {
+        dimentionSelectionHandeler.AssignChoice(null, ID);
     }
 
     public void Grabed()
@@ -75,6 +85,7 @@ public class FeatureObject : MonoBehaviour
             collitionDimentionObject.AssignFeature(this);
         }
     }
+    
 
     private void Update()
     {

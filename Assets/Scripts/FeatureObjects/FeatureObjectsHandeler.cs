@@ -56,7 +56,6 @@ public class FeatureObjectsHandeler : MonoBehaviour
             newInteractionCube.transform.localPosition = newPosition;
             
             FeatureObject featureObject = newInteractionCube.GetComponent<FeatureObject>();
-            featureObject.boardPosition = newPosition;
             featureObject.boardScaler = newInteractionCube.transform.localScale;
             featureObject.SetText(_featureStrings[featureString]);
             featureObject.feature = newInteractionCube.name;
