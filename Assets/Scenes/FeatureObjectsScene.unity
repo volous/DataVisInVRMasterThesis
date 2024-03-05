@@ -4382,6 +4382,7 @@ GameObject:
   - component: {fileID: 1253388715}
   - component: {fileID: 1253388717}
   - component: {fileID: 1253388716}
+  - component: {fileID: 1253388718}
   m_Layer: 0
   m_Name: CsvHandeler
   m_TagString: Untagged
@@ -4416,11 +4417,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ddf8bd1971c484f840874893dbdd46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RederingArea: 30
+  RederingArea: 20
   _mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   _material: {fileID: 2100000, guid: 9e3c83d2d8eca554fa9d5f5b9ac9fb25, type: 2}
   transparency: 1
-  size: 1
+  size: 0.2
   featureObjectsHandeler: {fileID: 1736436225}
   posX: Size
   posY: Weight
@@ -4439,6 +4440,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac98275789321a7478642ec7a4c66d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1253388718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253388714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a35a25c587d0c4ab806dc972c7b7eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  csvFilePath: C:\UNI\10.Semester\DataVisInVRMasterThesis\Assets\CSVs
+  numDimensions: 10
+  numRows: 10000
 --- !u!1 &1301037782
 GameObject:
   m_ObjectHideFlags: 0
