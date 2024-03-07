@@ -8,7 +8,8 @@ public class WorldMovment : MonoBehaviour
     public GameObject xrRig;
     public Transform rightControllerTransform;
     public Transform leftControllerTransform;
-
+    public UiMovment uiMovment;
+    
     [Header("Speed Controls")] 
     public float translationScaler;
     public float rotationScaler;
@@ -92,6 +93,7 @@ public class WorldMovment : MonoBehaviour
     {
         _isRightTriggerDown = false;
         _initialScale = xrRig.transform.localScale;
+        uiMovment.speed = (int)xrRig.transform.localScale.x;
     }
 
     void LeftTriggerPressed(InputAction.CallbackContext context)
@@ -108,6 +110,7 @@ public class WorldMovment : MonoBehaviour
     {
         _isLeftTriggerDown = false;
         _initialScale = xrRig.transform.localScale;
+        uiMovment.speed = (int)xrRig.transform.localScale.x;
     }
 
     float CalculateDistanceBetweenHands()
