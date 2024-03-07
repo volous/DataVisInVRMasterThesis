@@ -35,21 +35,27 @@ public class WorldMovment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!_isRightTriggerDown) return;
         Translate();
+        Rotate();
     }
 
     void Translate()
     {
-        if (!_isRightTriggerDown) return;
-
         Vector3 newPos = _setPosition - rightControllerTransform.position;
+        xrRig.transform.position = Vector3.Lerp(newPos, xrRig.transform.position, translationScaler/1000);
+    }
 
-        xrRig.transform.position = Vector3.Lerp(newPos, xrRig.transform.position, translationScaler);
+    void Rotate()
+    {
+        Quaternion newRot = _setRotation * Quaternion.Inverse(rightControllerTransform.rotation);
+        xrRig.transform.rotation = Quaternion.Lerp(newRot, xrRig.transform.rotation, rotationScaler /1000);
     }
 
     void RightTriggerPressed(InputAction.CallbackContext context)
     {
         _setPosition = xrRig.transform.position + rightControllerTransform.position;
+        _setRotation = xrRig.transform.rotation * rightControllerTransform.rotation;
         _isRightTriggerDown = true;
     }
     
