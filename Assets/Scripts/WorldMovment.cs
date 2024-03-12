@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class WorldMovment : MonoBehaviour
 {
+    public bool worldPull;
     public GameObject xrRig;
     public Transform rightControllerTransform;
     public Transform leftControllerTransform;
@@ -19,6 +20,10 @@ public class WorldMovment : MonoBehaviour
     private float _handDistance;
     private Vector3 _initialScale;
 
+    private Vector3 _setRightPosition;
+    private Vector3 _setLeftPosition;
+    
+    
     private Vector3 _translationDir;
     private Quaternion _rotationalDir;
 
@@ -45,16 +50,21 @@ public class WorldMovment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_isRightTriggerDown) return;
-        Translate();
-        Rotate();
+        if (worldPull)
+        {
+            if (!_isRightTriggerDown) return;
+            Translate();
+            // Rotate();
         
-        if (!_isLeftTriggerDown) return;
-        Scale();
+            if (!_isLeftTriggerDown) return;
+            Scale(); 
+        }
+        
     }
 
     void Translate()
     {
+
 
         Vector3 newPos = _setPosition - rightControllerTransform.position;
         xrRig.transform.position = Vector3.Lerp(newPos, xrRig.transform.position, translationScaler/1000);

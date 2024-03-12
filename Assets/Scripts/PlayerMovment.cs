@@ -15,6 +15,8 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private GameObject _controllerObject; 
     //reference to the reference object
     [SerializeField] private GameObject _selectedReference;
+
+    
     //bool to determine if the user is moving
     private bool _isMoving = false;
     
@@ -33,7 +35,7 @@ public class PlayerMovment : MonoBehaviour
             //get the directinal difference between the controller and the reference object
             Vector3 _direction = (_controllerObject.transform.position - _selectedReference.transform.position);
             //translation using the direciton
-            transform.Translate(_direction * Time.deltaTime * movSpeed);
+            transform.Translate(-_direction * Time.deltaTime * movSpeed);
         }
         
     }
