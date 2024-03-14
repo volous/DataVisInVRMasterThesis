@@ -14,7 +14,7 @@ public class DataPointsRenderer : MonoBehaviour
     [Range(0,1)] public float transparency;
 
     [Header("Partical System")] 
-    public ParticalRenderer particalRenderer;
+    public PointCloudRenderer pointCloudRenderer;
     
     public float size = 1;
     public FeatureObjectsHandeler featureObjectsHandeler;
@@ -155,7 +155,7 @@ public class DataPointsRenderer : MonoBehaviour
         }
         
         Debug.Log("set voxels");
-        particalRenderer.SetVoxels(_position, _scales, _colors);
+        pointCloudRenderer.SetParticals(_position, _scales, _colors);
     }
 
     Color RainbowColorFromFloat(float value)
