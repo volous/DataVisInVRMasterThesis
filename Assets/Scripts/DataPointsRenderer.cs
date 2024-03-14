@@ -13,6 +13,9 @@ public class DataPointsRenderer : MonoBehaviour
     [SerializeField] private Material _material;
     [Range(0,1)] public float transparency;
 
+    [Header("Partical System")] 
+    public ParticalRenderer particalRenderer;
+    
     public float size = 1;
     public FeatureObjectsHandeler featureObjectsHandeler;
     
@@ -31,6 +34,8 @@ public class DataPointsRenderer : MonoBehaviour
     private Mesh[] _meshes;
     private Color[] _colors;
     private Material[] _materials;
+
+    private List<GameObject> _glyphsList;
 
 
     private void Start()
@@ -148,8 +153,11 @@ public class DataPointsRenderer : MonoBehaviour
             nMat.color = _colors[row];
             _materials[row] = nMat;
         }
+        
+        Debug.Log("set voxels");
+        particalRenderer.SetVoxels(_position, _scales, _colors);
     }
-    
+
     Color RainbowColorFromFloat(float value)
     {
         // Hue goes from 0 to 1, representing the entire color spectrum
@@ -167,7 +175,7 @@ public class DataPointsRenderer : MonoBehaviour
     private void Update()
     {
         if (!_isRunning) return;
-        
+        return;
         for (int i = 0; i < _position.Length; i++)
         {
             // Draw the mesh with the specified scale
