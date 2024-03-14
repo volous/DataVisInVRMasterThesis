@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 [RequireComponent(typeof(ParticleSystem))]
 public class ParticalRenderer : MonoBehaviour
@@ -39,12 +40,16 @@ public class ParticalRenderer : MonoBehaviour
     {
         _voxels = new ParticleSystem.Particle[positions.Length];
 
-        for (int i = 0; i < positions.Length; i++)
+        Parallel.For(0, positions.Length, i =>
         {
-            _voxels[i].position = positions[i];
-            _voxels[i].startSize = scales[i] * size;
-            _voxels[i].startColor = colors[i];
-        }
+            ParticleSystem.Particle voxel = new ParticleSystem.Particle
+            {
+                position = positions[i],
+                startSize = scales[i] * size,
+                startColor = colors[i]
+            };
+            _voxels[i] = voxel;
+        });
 
         _voxelsUpdate = true;
     }
