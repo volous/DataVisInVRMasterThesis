@@ -35,8 +35,6 @@ public class DataPointsRenderer : MonoBehaviour
     private Color[] _colors;
     private Material[] _materials;
 
-    private List<GameObject> _glyphsList;
-
 
     private void Start()
     {
@@ -154,7 +152,6 @@ public class DataPointsRenderer : MonoBehaviour
             _materials[row] = nMat;
         }
         
-        Debug.Log("set voxels");
         pointCloudRenderer.SetParticals(_position, _scales, _colors);
     }
 
