@@ -8,11 +8,16 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"picker_window_position_offset.74AD8FDB" = "916.8;258.4;320;550.4"
-	"picker_search_text.74AD8FDB" = "default "
-	"last_search.74AD8FDB" = "default "
+	"picker_window_position_offset.74AD8FDB" = "916.8;232.8;320;550.4"
+	"picker_search_text.74AD8FDB" = ""
+	"last_search.74AD8FDB" = ""
 	"OpenInspectorPreview.74AD8FDB" = "0"
 	"currentGroup.74AD8FDB" = "all"
+	"picker_window_position_offset.3172962C" = "982.4;184.8;320;550.4"
+	"picker_search_text.3172962C" = "cube"
+	"last_search.3172962C" = "cube"
+	"OpenInspectorPreview.3172962C" = "0"
+	"currentGroup.3172962C" = "all"
 }
 providers = {
 	packages = {
@@ -60,10 +65,21 @@ providers = {
 		priority = 50
 		defaultAction = null
 	}
+	archetype = {
+		active = true
+		priority = 2500
+		defaultAction = null
+	}
+	journal = {
+		active = true
+		priority = 2500
+		defaultAction = null
+	}
 }
 objectSelectors = {
 }
 recentSearches = [
+	"d"
 ]
 searchItemFavorites = [
 ]

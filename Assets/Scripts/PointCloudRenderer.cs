@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +30,7 @@ public class PointCloudRenderer : MonoBehaviour
             _vfx.SetUInt(Shader.PropertyToID("ParticalCount"), _particalCount);
             _vfx.SetTexture(Shader.PropertyToID("TexColor"), _texColor);
             _vfx.SetTexture(Shader.PropertyToID("TexPosScale"), _texPosScale);
-            _vfx.SetUInt(Shader.PropertyToID("Reselution"), _resolution);
+            _vfx.SetUInt(Shader.PropertyToID("Resolution"), _resolution);
         }
     }
 
@@ -51,7 +50,7 @@ public class PointCloudRenderer : MonoBehaviour
             {
                 int index = x + y * texWidht;
                 _texColor.SetPixel(x,y, colors[index]);
-                var data = new Color(positions[index].x, positions[index].y, positions[index].z, particalSize);
+                var data = new Color(positions[index].x -0.5f, positions[index].y -0.5f, positions[index].z -0.5f, scales[index] * particalSize);
                 _texPosScale.SetPixel(x, y, data);
             }
         }
