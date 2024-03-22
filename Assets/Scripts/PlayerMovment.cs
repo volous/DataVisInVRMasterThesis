@@ -55,7 +55,6 @@ public class PlayerMovment : MonoBehaviour
         _selectedReference.transform.position = _controllerObject.transform.position;
         //activates the reference object, making it visible in the system
         _selectedReference.SetActive(true);
-
     }
     
     private void ReleaseFunction()

@@ -53,11 +53,11 @@ public class WorldMovment : MonoBehaviour
         if (worldPull)
         {
             if (!_isRightTriggerDown) return;
-            Translate();
+            //Translate();
             // Rotate();
         
             if (!_isLeftTriggerDown) return;
-            Scale(); 
+            //Scale(); 
         }
         
     }

@@ -3062,9 +3062,9 @@ Transform:
   m_GameObject: {fileID: 902449838}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.31, y: 5.92, z: 6.31}
-  m_LocalScale: {x: 3.4572, y: 3.4572, z: 3.4572}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 5.1084375, z: 5.251964}
+  m_LocalScale: {x: 1.68, y: 1.68, z: 1.68}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3112,13 +3112,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164ae1a1b41280a4d9cad085b14bce5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translationScaler: 500
-  rotationScaler: 400
+  translationScaler: 1000
+  rotationScaler: 2000
   leftTriggerReference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rightTriggerReference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   xrRig: {fileID: 712971188}
   rightController: {fileID: 224771154}
   leftController: {fileID: 342694813}
+  objectToRotate: {fileID: 902449838}
   movSpeed: 1
 --- !u!1 &929784418
 GameObject:
@@ -3872,6 +3873,37 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1042731855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1042731856}
+  m_Layer: 0
+  m_Name: ToRotatedAroundEmpty
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1042731856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042731855}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 5.1084375, z: 5.251964}
+  m_LocalScale: {x: 4.5709, y: 4.5709, z: 4.5709}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1089103104
 GameObject:
   m_ObjectHideFlags: 0
@@ -4611,6 +4643,7 @@ MonoBehaviour:
   _mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   _material: {fileID: 2100000, guid: 9e3c83d2d8eca554fa9d5f5b9ac9fb25, type: 2}
   transparency: 1
+  particalRenderer: {fileID: 0}
   size: 1
   featureObjectsHandeler: {fileID: 1736436225}
   posX: Size
@@ -6783,6 +6816,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 705507995}
   - {fileID: 930420381}
+  - {fileID: 1042731856}
   - {fileID: 712971191}
   - {fileID: 1160484694}
   - {fileID: 1443800670}
