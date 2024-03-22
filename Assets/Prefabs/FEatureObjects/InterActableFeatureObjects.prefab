@@ -584,7 +584,7 @@ MonoBehaviour:
       - m_Target: {fileID: 8817887885081650971}
         m_TargetAssemblyTypeName: FeatureObject, Assembly-CSharp
         m_MethodName: LetGoOfObject
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

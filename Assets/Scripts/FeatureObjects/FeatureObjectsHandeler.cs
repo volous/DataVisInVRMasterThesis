@@ -7,7 +7,8 @@ public class FeatureObjectsHandeler : MonoBehaviour
     public GameObject featureInteractionCube;
     public Vector3 firstPosition;
     public GameObject featureBoard;
-
+    public float size;
+    
         [Header("Positioning Varables")] 
     public float xSpacing;
     public float ySpacing;
@@ -50,10 +51,17 @@ public class FeatureObjectsHandeler : MonoBehaviour
             yMultyplier++;
 
             GameObject newInteractionCube = Instantiate(featureInteractionCube);
-
-            newInteractionCube.transform.SetParent(featureBoard.transform);
+            newInteractionCube.transform.SetParent(featureBoard.transform, true);
+            newInteractionCube.transform.localScale = Vector3.one * size / 10;
+            Vector3 scalerCube = newInteractionCube.transform.localScale;
+            Vector3 scalerBoard = featureBoard.transform.localScale;
+            newInteractionCube.transform.localScale = new Vector3(
+                scalerCube.x / scalerBoard.x,
+                scalerCube.y / scalerBoard.y,
+                scalerCube.z / scalerBoard.z);
+            newInteractionCube.transform.rotation = featureBoard.transform.rotation;
             newInteractionCube.name = _featureStrings[featureString];
-            newInteractionCube.transform.localPosition = newPosition;
+            newInteractionCube.transform.localPosition = newPosition - new Vector3(0, 0, 1); 
             
             FeatureObject featureObject = newInteractionCube.GetComponent<FeatureObject>();
             featureObject.boardScaler = newInteractionCube.transform.localScale;

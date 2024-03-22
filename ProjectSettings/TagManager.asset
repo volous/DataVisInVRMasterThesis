@@ -8,6 +8,7 @@ TagManager:
   - TimeCodeButton
   - ExitTriggerBox
   - DimentionCollider
+  - Socket
   layers:
   - Default
   - TransparentFX
