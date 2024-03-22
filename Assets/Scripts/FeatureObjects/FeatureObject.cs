@@ -21,9 +21,13 @@ public class FeatureObject : MonoBehaviour
     private MeshRenderer _meshRenderer;
     private Material _startingMaterial;
 
+    private GameObject _socketObject;
+    private GameObject _boardObject;
+
 
     private void Start()
     {
+        _boardObject = transform.parent.gameObject;
         boardPosition = gameObject.transform.localPosition;
         _meshRenderer = gameObject.GetComponent<MeshRenderer>();
         _startingMaterial = _meshRenderer.material;
@@ -62,8 +66,29 @@ public class FeatureObject : MonoBehaviour
         gameObject.GetComponent<Collider>().isTrigger = true;
     }
 
-    public void LetGoOfObject()
+    public void LetGoOfObject(bool isInSocket = false)
     {
+        if (_socketObject != null && !isInSocket)
+        {
+            transform.SetParent(_socketObject.transform);
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = _socketObject.transform.rotation;
+            transform.localScale = Vector3.one;
+
+            SocketClass socketClass = _socketObject.GetComponent<SocketClass>();
+
+            GameObject objectCurrentlyInSocket = socketClass.GetFeatureObject();
+            if (objectCurrentlyInSocket != null)
+            {
+                objectCurrentlyInSocket.GetComponent<FeatureObject>().LetGoOfObject(true);
+            }
+            
+            socketClass.AssignFeatureObject(gameObject);
+            return;
+        }
+        
+        transform.SetParent(_boardObject.transform);
+        
         gameObject.GetComponent<Collider>().isTrigger = false;
         
         transform.localPosition = boardPosition;
@@ -103,6 +128,11 @@ public class FeatureObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Socket"))
+        {
+            _socketObject = other.gameObject;
+        }
+        
         if (other.CompareTag("DimentionCollider"))
         {
             Color color = other.GetComponentInChildren<Renderer>().material.color;
@@ -117,6 +147,12 @@ public class FeatureObject : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
+        if (other.CompareTag("Socket"))
+        {
+            _socketObject.GetComponent<SocketClass>().RemoveFeatureObject();
+            _socketObject = null;
+        }
+        
         if (other.CompareTag("DimentionCollider"))
         {
             Color color = other.GetComponentInChildren<Renderer>().material.color;
