@@ -3420,9 +3420,9 @@ MonoBehaviour:
   rightController: {fileID: 224771154}
   leftController: {fileID: 342694813}
   objectToRotate: {fileID: 1555464973}
-  translationScaler: 400
   rotationScaler: 400
-  minScaleThreshold: 0.1
+  minScaleThreshold: 0.01
+  movementMultiplier: 1.6
   leftTriggerReference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rightTriggerReference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   movSpeed: 0
