@@ -183,7 +183,7 @@ public class WorldPulling : MonoBehaviour
         float currentHandDistance = CalculateDistanceBetweenHands();
         float distanceDifference = currentHandDistance - _handDistance;
     
-        if (distanceDifference is < 0.02f and > -0.02f) return;
+        // if (distanceDifference is < 0.001f and > -0.02f) return;
         objectToRotate.transform.localScale = Vector3.Max(_initialScale + Vector3.one * distanceDifference, Vector3.one * minScaleThreshold);
         
     }
