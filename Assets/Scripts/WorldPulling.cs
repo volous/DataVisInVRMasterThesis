@@ -15,9 +15,9 @@ public class WorldPulling : MonoBehaviour
     private bool _isRightTriggerDown, _isLeftTriggerDown;
     public GameObject xrRig, rightController, leftController, objectToRotate;
     
-    public float translationScaler;
     public float rotationScaler;
     public float minScaleThreshold;
+    public float movementMultiplier;
     
     public InputActionReference leftTriggerReference, rightTriggerReference;
   
@@ -157,7 +157,7 @@ public class WorldPulling : MonoBehaviour
     {
         Vector3 newRightPos = _setRightPosition - rightController.transform.position;
         Vector3 newLeftPos = _setLeftPosition - leftController.transform.position;
-        Vector3 newAvgPos = (newRightPos + newLeftPos) / 2;
+        Vector3 newAvgPos = ((newRightPos * movementMultiplier) + (newLeftPos * movementMultiplier)) / 2;
 
         objectToRotate.transform.position = _previousLocation - newAvgPos;
     }
@@ -183,8 +183,8 @@ public class WorldPulling : MonoBehaviour
         float currentHandDistance = CalculateDistanceBetweenHands();
         float distanceDifference = currentHandDistance - _handDistance;
     
-        if (distanceDifference is < 0.2f and > -0.2f) return;
-        objectToRotate.transform.localScale = Vector3.Max(_initialScale + Vector3.one * distanceDifference, Vector3.one * 0.1f);
+        if (distanceDifference is < 0.02f and > -0.02f) return;
+        objectToRotate.transform.localScale = Vector3.Max(_initialScale + Vector3.one * distanceDifference, Vector3.one * minScaleThreshold);
         
     }
 
