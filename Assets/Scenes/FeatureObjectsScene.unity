@@ -7626,7 +7626,6 @@ GameObject:
   - component: {fileID: 712971191}
   - component: {fileID: 712971190}
   - component: {fileID: 712971189}
-  - component: {fileID: 712971192}
   m_Layer: 0
   m_Name: XR Origin (XR Rig)
   m_TagString: Untagged
@@ -7679,27 +7678,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1335902020}
-  - {fileID: 1767851040}
   - {fileID: 1301037783}
   - {fileID: 1367050067}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &712971192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 712971188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a967744baafc69a42a67990feca06c33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerDown: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  movSpeed: 1
-  _controllerObject: {fileID: 224771154}
-  _selectedReference: {fileID: 197621748}
 --- !u!850595691 &791497949
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -8327,6 +8309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 914033549}
   - component: {fileID: 914033550}
+  - component: {fileID: 914033551}
   m_Layer: 0
   m_Name: WorldMovmentHandeler
   m_TagString: Untagged
@@ -8370,6 +8353,28 @@ MonoBehaviour:
   rotationScaler: 400
   triggerRight: {fileID: 3470873918276849657, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   triggerLeft: {fileID: -1096530298201956607, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+--- !u!114 &914033551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914033548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 164ae1a1b41280a4d9cad085b14bce5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xrRig: {fileID: 712971188}
+  rightController: {fileID: 224771154}
+  leftController: {fileID: 342694813}
+  objectToRotate: {fileID: 1555464973}
+  translationScaler: 400
+  rotationScaler: 400
+  minScaleThreshold: 0.1
+  leftTriggerReference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rightTriggerReference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  movSpeed: 0
 --- !u!1 &929784418
 GameObject:
   m_ObjectHideFlags: 0
@@ -11825,67 +11830,6 @@ MonoBehaviour:
   xSpacing: 0.2
   ySpacing: 0.2
   numberOfFeaturesOnY: 5
---- !u!1 &1767851039
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1767851040}
-  - component: {fileID: 1767851042}
-  - component: {fileID: 1767851041}
-  m_Layer: 0
-  m_Name: Locomotion System
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1767851040
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1767851039}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 712971191}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1767851041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1767851039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f69dc1cb084aa42b2f2f8cd87bc770, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_System: {fileID: 1767851042}
-  m_DelayTime: 0
---- !u!114 &1767851042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1767851039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03a5df2202a8b96488c744be3bd0c33e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Timeout: 10
-  m_XROrigin: {fileID: 712971190}
 --- !u!1 &1823833211
 GameObject:
   m_ObjectHideFlags: 0
