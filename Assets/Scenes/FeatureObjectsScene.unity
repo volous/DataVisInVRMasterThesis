@@ -3323,7 +3323,7 @@ MonoBehaviour:
   _material: {fileID: 2100000, guid: 9e3c83d2d8eca554fa9d5f5b9ac9fb25, type: 2}
   transparency: 1
   pointCloudRenderer: {fileID: 1555464977}
-  size: 1
+  size: 10
   featureObjectsHandeler: {fileID: 1736436225}
   posX: Size
   posY: Weight
