@@ -16,13 +16,11 @@ public class WorldPulling : MonoBehaviour
     public GameObject xrRig, rightController, leftController, objectToRotate;
     
     public float rotationScaler;
-    public float minScaleThreshold;
+    public float minScaleThreshold, maxScaleThreshold;
     public float movementMultiplier;
     
     public InputActionReference leftTriggerReference, rightTriggerReference;
-  
-    public float movSpeed = 5;
-    
+      
     private float _handDistance;
     private Vector3 _initialScale;
     private Vector3 _setRightPosition;
@@ -73,7 +71,6 @@ public class WorldPulling : MonoBehaviour
         if (context.performed)
         {
             RightTriggerFunction();
-            
         }
     }
 
@@ -100,18 +97,13 @@ public class WorldPulling : MonoBehaviour
         _isLeftTriggerDown = true;
         _setLeftPosition = xrRig.transform.position + leftController.transform.position;
         _setRightPosition = xrRig.transform.position + rightController.transform.position;
-        // _setLeftRotation = objectToRotate.transform.rotation * leftController.transform.rotation;
         
         Vector3 newRightPos = _setRightPosition - rightController.transform.position;
         Vector3 newLeftPos = _setLeftPosition - leftController.transform.position;
         Vector3 newAvgPos = (newRightPos + newLeftPos) / 2;
         _previousLocation = objectToRotate.transform.position - newAvgPos;
 
-       
-        
         if(_isRightTriggerDown) _handDistance = CalculateDistanceBetweenHands();
-        
-        
         
         // Quaternion _newRightRot = _setRightRotation * Quaternion.Inverse(rightController.transform.rotation);
         // Quaternion _newLeftRot = _setLeftRotation * Quaternion.Inverse(leftController.transform.rotation);
@@ -133,7 +125,6 @@ public class WorldPulling : MonoBehaviour
     {
         _isRightTriggerDown = false;
         _initialScale = objectToRotate.transform.localScale;
-        // _offset = objectToRotate.transform.rotation;
     }
     
     public void OnTriggerReleaseLeft(InputAction.CallbackContext context)
@@ -167,8 +158,6 @@ public class WorldPulling : MonoBehaviour
         Quaternion newRot = rightController.transform.rotation * _setRotation;
         objectToRotate.transform.rotation = Quaternion.Slerp(objectToRotate.transform.rotation, newRot, rotationScaler /1000);
         
-        
-        
         // Quaternion newRot = _offset * Quaternion.Inverse(rightController.transform.rotation);
         // objectToRotate.transform.rotation = newRot;
         // Quaternion _newRightRot = rightController.transform.rotation * Quaternion.Inverse(_setRightRotation);
@@ -182,10 +171,16 @@ public class WorldPulling : MonoBehaviour
     {
         float currentHandDistance = CalculateDistanceBetweenHands();
         float distanceDifference = currentHandDistance - _handDistance;
-    
-        // if (distanceDifference is < 0.001f and > -0.02f) return;
-        objectToRotate.transform.localScale = Vector3.Max(_initialScale + Vector3.one * distanceDifference, Vector3.one * minScaleThreshold);
         
+        Vector3 minScale = Vector3.one * minScaleThreshold;
+        Vector3 maxScale = Vector3.one * maxScaleThreshold;
+        
+        Vector3 newScale = _initialScale + Vector3.one * distanceDifference;
+        Vector3 finalScale = Vector3.Max(minScale, Vector3.Min(maxScale, newScale));
+
+        objectToRotate.transform.localScale = finalScale;
+
+
     }
 
     float CalculateDistanceBetweenHands()
