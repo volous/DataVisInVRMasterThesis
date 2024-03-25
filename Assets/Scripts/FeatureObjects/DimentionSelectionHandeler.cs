@@ -18,7 +18,7 @@ public class DimentionSelectionHandeler : MonoBehaviour
     public void AssignChoice(string feature, int dimentionID)
     {
         _dimentions[dimentionID] = feature;
-
+        
         DprRendering();
     }
 

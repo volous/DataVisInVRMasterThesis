@@ -24,6 +24,8 @@ public class FeatureObject : MonoBehaviour
     private GameObject _socketObject;
     private GameObject _boardObject;
 
+    private Color _baseColor;
+
 
     private void Start()
     {
@@ -59,6 +61,10 @@ public class FeatureObject : MonoBehaviour
     public void Grabed()
     {
         gameObject.GetComponent<Collider>().isTrigger = true;
+        if (_socketObject != null)
+        {
+            _socketObject.GetComponent<SocketClass>().RemoveFeatureObject();
+        }
     }
 
     public void CallAsignFeature()
@@ -103,11 +109,7 @@ public class FeatureObject : MonoBehaviour
         transform.localPosition = boardPosition;
         transform.localScale = boardScaler;
         transform.localRotation = new Quaternion(0, 0, 0, 0);
-
-        if (_socketObject)
-        {
-            _socketObject.GetComponent<SocketClass>().RemoveFeatureObject();
-        }
+        
     }
     
 
@@ -130,6 +132,8 @@ public class FeatureObject : MonoBehaviour
         if (other.CompareTag("Socket"))
         {
             _socketObject = other.gameObject;
+            _baseColor =_socketObject.GetComponent<Renderer>().material.color;
+            _socketObject.GetComponent<Renderer>().material.color = new Color(1, 1, 1, 0.5f);
         }
     }
     
@@ -137,6 +141,7 @@ public class FeatureObject : MonoBehaviour
     {
         if (other.CompareTag("Socket"))
         {
+            _socketObject.GetComponent<Renderer>().material.color = _baseColor;
             _socketObject = null;
         }
     }

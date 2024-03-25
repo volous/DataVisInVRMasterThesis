@@ -9,7 +9,7 @@ public class SocketClass : MonoBehaviour
 {
 
     private GameObject _featureObject;
-    
+    public DimentionSelectionHandeler _dimentionSelectionHandeler;
     public int ID;
     // Declare a UnityEvent
     public UnityEvent functionToCall;
@@ -19,6 +19,12 @@ public class SocketClass : MonoBehaviour
     public void CallStoredFunction()
     {
         functionToCall.Invoke(); // Invoke the UnityEvent
+       
+    }
+
+    private void Start()
+    {
+        //_dimentionSelectionHandeler = GameObject.Find("DimentionSelectionHandeler").GetComponent<DimentionSelectionHandeler>();
     }
 
     public GameObject GetFeatureObject()
@@ -33,7 +39,15 @@ public class SocketClass : MonoBehaviour
 
     public void RemoveFeatureObject()
     {
-        _featureObject.GetComponent<FeatureObject>().UnAsignDimention(ID);
+        _dimentionSelectionHandeler.AssignChoice(null, ID);
         _featureObject = null;
+    }
+
+    private void Update()
+    {
+        // if (_featureObject == null)
+        // {
+        //     
+        // }
     }
 }
