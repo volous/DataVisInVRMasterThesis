@@ -34,11 +34,6 @@ public class FeatureObject : MonoBehaviour
         dimentionSelectionHandeler = GameObject.Find("DimentionSelectionHandeler").GetComponent<DimentionSelectionHandeler>();
     }
 
-    public void AssignedToDimention()
-    {
-        
-    }
-
     public void UnChoose()
     {
         _meshRenderer.material = _startingMaterial;
@@ -66,13 +61,21 @@ public class FeatureObject : MonoBehaviour
         gameObject.GetComponent<Collider>().isTrigger = true;
     }
 
+    public void CallAsignFeature()
+    {
+        if (_socketObject == null) return;
+
+        SocketClass socketClass = _socketObject.GetComponent<SocketClass>();
+        dimentionSelectionHandeler.AssignChoice(feature, socketClass.ID);
+    }
+
     public void LetGoOfObject(bool isInSocket = false)
     {
         if (_socketObject != null && !isInSocket)
         {
             transform.SetParent(_socketObject.transform);
             transform.localPosition = Vector3.zero;
-            transform.localRotation = _socketObject.transform.rotation;
+            transform.localRotation = _socketObject.transform.localRotation;
             transform.localScale = Vector3.one;
 
             SocketClass socketClass = _socketObject.GetComponent<SocketClass>();
@@ -84,6 +87,11 @@ public class FeatureObject : MonoBehaviour
             }
             
             socketClass.AssignFeatureObject(gameObject);
+            if (_socketObject.gameObject.name != "ManipulationSocket")
+            {
+                CallAsignFeature();
+            }
+            
             return;
         }
         
@@ -94,21 +102,6 @@ public class FeatureObject : MonoBehaviour
         transform.localPosition = boardPosition;
         transform.localScale = boardScaler;
         transform.localRotation = new Quaternion(0, 0, 0, 0);
-
-        if (_currentCollisionObject != null)
-        {
-            _isInUse = true;
-            gameObject.GetComponent<XRGrabInteractable>().enabled = false;
-
-            DimentionObject collitionDimentionObject = _currentCollisionObject.GetComponent<DimentionObject>();
-            
-            dimentionSelectionHandeler.AssignChoice(feature, collitionDimentionObject.ID);
-            foreach (Renderer childRenderer in _currentCollisionObject.GetComponentsInChildren<Renderer>())
-            {
-                childRenderer.material.color = Color.green;
-            }
-            collitionDimentionObject.AssignFeature(this);
-        }
     }
     
 
@@ -132,17 +125,6 @@ public class FeatureObject : MonoBehaviour
         {
             _socketObject = other.gameObject;
         }
-        
-        if (other.CompareTag("DimentionCollider"))
-        {
-            Color color = other.GetComponentInChildren<Renderer>().material.color;
-            color.a = 0.5f;
-            foreach (Renderer childRenderer in other.GetComponentsInChildren<Renderer>())
-            {
-                childRenderer.material.color = color;
-            }
-            _currentCollisionObject = other.gameObject;
-        }
     }
     
     private void OnTriggerExit(Collider other)
@@ -151,17 +133,6 @@ public class FeatureObject : MonoBehaviour
         {
             _socketObject.GetComponent<SocketClass>().RemoveFeatureObject();
             _socketObject = null;
-        }
-        
-        if (other.CompareTag("DimentionCollider"))
-        {
-            Color color = other.GetComponentInChildren<Renderer>().material.color;
-            color.a = 1;
-            foreach (Renderer childRenderer in other.GetComponentsInChildren<Renderer>())
-            {
-                childRenderer.material.color = color;
-            }
-            _currentCollisionObject = null;
         }
     }
 }

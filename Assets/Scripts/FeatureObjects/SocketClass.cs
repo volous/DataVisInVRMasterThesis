@@ -10,6 +10,7 @@ public class SocketClass : MonoBehaviour
 
     private GameObject _featureObject;
     
+    public int ID;
     // Declare a UnityEvent
     public UnityEvent functionToCall;
 
