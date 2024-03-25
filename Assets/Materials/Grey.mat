@@ -10,13 +10,14 @@ Material:
   m_Name: Grey
   m_Shader: {fileID: 4800000, guid: c4edd00ff2db5b24391a4fcb1762e459, type: 3}
   m_Parent: {fileID: 2100000, guid: 41f6969961d84da41a7c03ec585a1a27, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_ModifiedSerializedProperties: 18
   m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_InvalidKeywords:
+  - _EMISSION
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   disabledShaderPasses:
   - DistortionVectors
@@ -26,9 +27,18 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _AlphaDstBlend: 0
+    - _CullMode: 1
+    - _CullModeForward: 1
+    - _DstBlend: 0
+    - _OpaqueCullMode: 1
+    - _SurfaceType: 0
+    - _ZTestDepthEqualForOpaque: 3
+    - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.6037736, g: 0.600356, b: 0.600356, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _UnlitColor: {r: 0.6037736, g: 0.60035604, b: 0.60035604, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &4994002826741939543
