@@ -28,7 +28,7 @@ public class DimentionSelectionHandeler : MonoBehaviour
         {
             if (_dimentions[i] == "" || _dimentions[i] == null)
             {
-                DPR.SetIsRunning(false);
+                DPR.StopRendering();
                 return;
             }
                 

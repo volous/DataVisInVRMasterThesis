@@ -88,7 +88,7 @@ public class DataPointsRenderer : MonoBehaviour
     public void BeginRendering()
     {
         _isRunning = true;
- 
+        pointCloudRenderer.enabled = true;
         int nRows = _dataArray.GetLength(0) -1;
         int nFeatures = _dataArray.GetLength(1)-1;
         
@@ -169,15 +169,8 @@ public class DataPointsRenderer : MonoBehaviour
         return rainbowColor;
     }
 
-    private void Update()
+    public void StopRendering()
     {
-        if (!_isRunning) return;
-        return;
-        for (int i = 0; i < _position.Length; i++)
-        {
-            // Draw the mesh with the specified scale
-            Graphics.DrawMesh(_meshes[i], _position[i], quaternion.identity, _materials[i], 0, null, 0, null, false,
-                false, false);
-        }
+        pointCloudRenderer.enabled = false;
     }
 }
