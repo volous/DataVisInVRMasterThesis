@@ -148,7 +148,7 @@ public class WorldPulling : MonoBehaviour
     {
         Vector3 newRightPos = _setRightPosition - rightController.transform.position;
         Vector3 newLeftPos = _setLeftPosition - leftController.transform.position;
-        Vector3 newAvgPos = ((newRightPos * movementMultiplier) + (newLeftPos * movementMultiplier)) / 2;
+        Vector3 newAvgPos = ((newRightPos * movementMultiplier) + (newLeftPos * movementMultiplier));
 
         objectToRotate.transform.position = _previousLocation - newAvgPos;
     }
