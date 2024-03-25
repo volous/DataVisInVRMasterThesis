@@ -5,6 +5,7 @@ using System.Reflection;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.iOS;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Primitives;
 using CommonUsages = UnityEngine.XR.CommonUsages;
@@ -17,9 +18,9 @@ public class WorldPulling : MonoBehaviour
     
     public float rotationScaler;
     public float minScaleThreshold, maxScaleThreshold;
-    public float movementMultiplier;
+    public float movementMultiplier, translationSpeed;
     
-    public InputActionReference leftTriggerReference, rightTriggerReference;
+    public InputActionReference leftTriggerReference, rightTriggerReference, rightJoyClick;
       
     private float _handDistance;
     private Vector3 _initialScale;
@@ -32,13 +33,18 @@ public class WorldPulling : MonoBehaviour
     private Quaternion _setLeftRotation;
     private Quaternion _setRotation, _offset;
 
+    private Quaternion _orgRotation;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        _orgRotation = objectToRotate.transform.rotation;
+        
         rightTriggerReference.action.performed += OnTriggerPressRight;
         leftTriggerReference.action.performed += OnTriggerPressLeft;
-
+        rightJoyClick.action.performed += OnTriggerPressRightJoy;
+        
         rightTriggerReference.action.canceled += OnTriggerReleaseRight;
         leftTriggerReference.action.canceled += OnTriggerReleaseLeft;
 
@@ -61,6 +67,7 @@ public class WorldPulling : MonoBehaviour
     {
         rightTriggerReference.action.performed -= OnTriggerPressRight;
         leftTriggerReference.action.performed -= OnTriggerPressLeft;
+        rightJoyClick.action.performed -= OnTriggerPressRightJoy;
 
         rightTriggerReference.action.canceled -= OnTriggerReleaseRight;
         leftTriggerReference.action.canceled -= OnTriggerReleaseLeft;
@@ -140,6 +147,19 @@ public class WorldPulling : MonoBehaviour
         _isLeftTriggerDown = false;
     }
     
+    public void OnTriggerPressRightJoy(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            RightJoyTriggerFunction();
+        }
+    }
+
+    public void RightJoyTriggerFunction()
+    {
+        objectToRotate.transform.rotation = _orgRotation;
+    }
+    
     #endregion
 
     #region TranslationRotationAndScaleFunctions
@@ -149,7 +169,7 @@ public class WorldPulling : MonoBehaviour
         Vector3 newRightPos = _setRightPosition - rightController.transform.position;
         Vector3 newLeftPos = _setLeftPosition - leftController.transform.position;
         Vector3 newAvgPos = ((newRightPos * movementMultiplier) + (newLeftPos * movementMultiplier)) / 2f;
-
+        newAvgPos *= movementMultiplier;
         objectToRotate.transform.position = _previousLocation - newAvgPos;
     }
 

@@ -2401,9 +2401,11 @@ MonoBehaviour:
   rotationScaler: 400
   minScaleThreshold: 0.01
   maxScaleThreshold: 100
-  movementMultiplier: 1.6
+  movementMultiplier: 3
+  translationSpeed: 0
   leftTriggerReference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rightTriggerReference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rightJoyClick: {fileID: 2757480806359094700, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1 &930420379
 GameObject:
   m_ObjectHideFlags: 0
