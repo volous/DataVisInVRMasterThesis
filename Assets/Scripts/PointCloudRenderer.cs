@@ -7,7 +7,7 @@ public class PointCloudRenderer : MonoBehaviour
 {
     private Texture2D _texColor;
     private Texture2D _texPosScale;
-    private VisualEffect _vfx;
+    public VisualEffect _vfx;
 
     private uint _resolution = 2048;
 

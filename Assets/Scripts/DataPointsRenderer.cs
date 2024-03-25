@@ -88,7 +88,7 @@ public class DataPointsRenderer : MonoBehaviour
     public void BeginRendering()
     {
         _isRunning = true;
-        pointCloudRenderer.enabled = true;
+        pointCloudRenderer._vfx.enabled = true;
         int nRows = _dataArray.GetLength(0) -1;
         int nFeatures = _dataArray.GetLength(1)-1;
         
@@ -171,6 +171,6 @@ public class DataPointsRenderer : MonoBehaviour
 
     public void StopRendering()
     {
-        pointCloudRenderer.enabled = false;
+        pointCloudRenderer._vfx.enabled = false;
     }
 }
