@@ -95,6 +95,7 @@ public class FeatureObject : MonoBehaviour
             return;
         }
         
+
         transform.SetParent(_boardObject.transform);
         
         gameObject.GetComponent<Collider>().isTrigger = false;
@@ -102,6 +103,11 @@ public class FeatureObject : MonoBehaviour
         transform.localPosition = boardPosition;
         transform.localScale = boardScaler;
         transform.localRotation = new Quaternion(0, 0, 0, 0);
+
+        if (_socketObject)
+        {
+            _socketObject.GetComponent<SocketClass>().RemoveFeatureObject();
+        }
     }
     
 
@@ -131,7 +137,6 @@ public class FeatureObject : MonoBehaviour
     {
         if (other.CompareTag("Socket"))
         {
-            _socketObject.GetComponent<SocketClass>().RemoveFeatureObject();
             _socketObject = null;
         }
     }

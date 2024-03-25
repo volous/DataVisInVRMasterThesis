@@ -14,8 +14,8 @@ scopes = {
 	"OpenInspectorPreview.74AD8FDB" = "0"
 	"currentGroup.74AD8FDB" = "all"
 	"picker_window_position_offset.3172962C" = "982.4;184.8;320;550.4"
-	"picker_search_text.3172962C" = "cube"
-	"last_search.3172962C" = "cube"
+	"picker_search_text.3172962C" = ""
+	"last_search.3172962C" = ""
 	"OpenInspectorPreview.3172962C" = "0"
 	"currentGroup.3172962C" = "all"
 }

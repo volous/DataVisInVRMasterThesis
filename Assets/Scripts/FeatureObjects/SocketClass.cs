@@ -33,6 +33,7 @@ public class SocketClass : MonoBehaviour
 
     public void RemoveFeatureObject()
     {
+        _featureObject.GetComponent<FeatureObject>().UnAsignDimention(ID);
         _featureObject = null;
     }
 }
