@@ -3327,7 +3327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac98275789321a7478642ec7a4c66d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvToRead: blobNorma
+  csvToRead: Spotify_Dataset_Normalized
 --- !u!114 &1253388718
 MonoBehaviour:
   m_ObjectHideFlags: 0

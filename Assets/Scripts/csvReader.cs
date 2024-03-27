@@ -5,6 +5,8 @@ using System.IO;
 
 public class csvReader : MonoBehaviour
 {
+    public string csvToRead;
+        
     private DataPointsRenderer DPR; // DataPointsRenderer is a class for handeling the visualization of the data
     void Start()
     {
@@ -15,7 +17,7 @@ public class csvReader : MonoBehaviour
     [ContextMenu("Start Read CSV")] // alowes for the function to run from the editor
     public void StartRead() 
     {
-        string path = Application.dataPath + "\\CSVs\\file.csv"; // the path location to the file called file, in the CVSs folder in the assets folder
+        string path = Application.dataPath + "\\CSVs\\" + csvToRead + ".csv"; // the path location to the file called file, in the CVSs folder in the assets folder
         
         string[] headers; // array of strings for the top line, aka the headers
         string[,] dataMatrix = ReadCSVFile(path, out headers); // a string Matrix for the rest of the data file
