@@ -1488,6 +1488,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "bButtonRight",
+                    "type": "Button",
+                    "id": "dcfd0042-34b4-493f-98bc-ec0b28db1934",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "RightTrigger",
                     "type": "Button",
                     "id": "514df188-fe23-4ce3-a2d8-e2b4a73e376f",
@@ -1680,6 +1689,17 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "LeftTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2845d8a3-d8d8-414a-9452-2f87d13cf34c",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "bButtonRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

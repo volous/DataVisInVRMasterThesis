@@ -3327,7 +3327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac98275789321a7478642ec7a4c66d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvToRead: blobNorma
+  csvToRead: {fileID: 4900000, guid: cc440c9a28ab04247974b4cf5cbf02d7, type: 3}
 --- !u!114 &1253388718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3342,7 +3342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   csvFilePath: C:\UNI\10.Semester\DataVisInVRMasterThesis\Assets\CSVs
   numDimensions: 10
-  numRows: 1000000
+  numRows: 5000000
 --- !u!1001 &1329666503
 PrefabInstance:
   m_ObjectHideFlags: 0

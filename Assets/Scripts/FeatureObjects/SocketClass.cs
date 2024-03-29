@@ -9,6 +9,7 @@ public class SocketClass : MonoBehaviour
 {
 
     private GameObject _featureObject;
+    public bool isManipulationSocket;
     public DimentionSelectionHandeler _dimentionSelectionHandeler;
     public int ID;
     // Declare a UnityEvent
@@ -19,7 +20,6 @@ public class SocketClass : MonoBehaviour
     public void CallStoredFunction()
     {
         functionToCall.Invoke(); // Invoke the UnityEvent
-       
     }
 
     private void Start()
@@ -39,6 +39,7 @@ public class SocketClass : MonoBehaviour
 
     public void RemoveFeatureObject()
     {
+
         _dimentionSelectionHandeler.AssignChoice(null, ID);
         _featureObject = null;
     }

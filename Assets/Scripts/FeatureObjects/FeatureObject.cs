@@ -26,6 +26,8 @@ public class FeatureObject : MonoBehaviour
 
     private Color _baseColor;
 
+    private FeatureManipulation _featureManipulation;
+
 
     private void Start()
     {
@@ -34,6 +36,7 @@ public class FeatureObject : MonoBehaviour
         _meshRenderer = gameObject.GetComponent<MeshRenderer>();
         _startingMaterial = _meshRenderer.material;
         dimentionSelectionHandeler = GameObject.Find("DimentionSelectionHandeler").GetComponent<DimentionSelectionHandeler>();
+        _featureManipulation = GameObject.Find("ManibulationHandeler").GetComponent<FeatureManipulation>();
     }
 
     public void UnChoose()
@@ -93,9 +96,13 @@ public class FeatureObject : MonoBehaviour
             }
             
             socketClass.AssignFeatureObject(gameObject);
-            if (_socketObject.gameObject.name != "ManipulationSocket")
+            if (!socketClass.isManipulationSocket)
             {
                 CallAsignFeature();
+            }
+            else
+            {
+                _featureManipulation.DataFromDPR(feature);
             }
             
             return;

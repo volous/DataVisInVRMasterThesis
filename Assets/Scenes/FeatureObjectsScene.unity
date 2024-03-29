@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 1
   functionToCall:
@@ -842,23 +843,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dimentionSelectionHandeler: {fileID: 0}
-  ID: 0
+  isManipulationSocket: 1
+  _dimentionSelectionHandeler: {fileID: 146518393}
+  ID: -1
   functionToCall:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 241974564}
-        m_TargetAssemblyTypeName: SocketClass, Assembly-CSharp
-        m_MethodName: testCall
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &342694813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,6 +1242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 4
   functionToCall:
@@ -2604,6 +2595,51 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1104334631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1104334632}
+  - component: {fileID: 1104334633}
+  m_Layer: 0
+  m_Name: ManibulationHandeler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1104334632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104334631}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1229539032}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1104334633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104334631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d7dc8bd289333940809cc58df015e65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DPR: {fileID: 1253388716}
 --- !u!1 &1129408293
 GameObject:
   m_ObjectHideFlags: 0
@@ -2637,6 +2673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 2
   functionToCall:
@@ -3255,6 +3292,7 @@ Transform:
   - {fileID: 1689332396}
   - {fileID: 914033549}
   - {fileID: 2101151668}
+  - {fileID: 1104334632}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1253388714
@@ -3327,7 +3365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac98275789321a7478642ec7a4c66d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvToRead: blobNorma
+  csvToRead: {fileID: 4900000, guid: 262232cf48402c5489ac64dd5a7583d0, type: 3}
 --- !u!114 &1253388718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3553,6 +3591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 3
   functionToCall:
@@ -3716,6 +3755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 0
   functionToCall:
@@ -4409,7 +4449,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axiesObject: {fileID: 514553318}
+  boardObject: {fileID: 1367050066}
   xButtonDownRight: {fileID: 8319409193046047542, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  bButtonDownRight: {fileID: 2723739234713410555, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!4 &1728648982 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 98e9ce64eaea82d4283c6ccb459b687f, type: 3}
@@ -4835,7 +4877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &2099052239
 BoxCollider:
   m_ObjectHideFlags: 0

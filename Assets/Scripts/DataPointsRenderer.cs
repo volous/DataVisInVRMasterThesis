@@ -173,4 +173,26 @@ public class DataPointsRenderer : MonoBehaviour
     {
         pointCloudRenderer._vfx.enabled = false;
     }
+
+    public string[] GetFeatureFromName(string name)
+    {
+        //first get the location int of the feature based on the name
+        int location = 0;
+        for (int i = 0; i < _headers.Length; i++)
+        {
+            if (_headers[i] == name)
+            {
+                location = i;
+                break;
+            }
+        }
+
+        string[] returnSting = new String[_dataArray.GetLength(0)]; // create a new aray the size of the number of instances in the dataset
+        for (int i = 0; i < _dataArray.GetLength(0) - 1; i++)
+        {
+            returnSting[i] = _dataArray[i, location]; // set the return list to the values from the full data array
+        }
+
+        return returnSting;
+    }
 }
