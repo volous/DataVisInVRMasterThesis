@@ -17,16 +17,19 @@ public class FeatureObject : MonoBehaviour
     public TMP_Text featureTextTop;
 
     private GameObject _currentCollisionObject;
-    private bool _isInUse;
     private MeshRenderer _meshRenderer;
     private Material _startingMaterial;
 
     private GameObject _socketObject;
+    private GameObject _lastSocket; // the last socket that this object was assiged too
     private GameObject _boardObject;
 
     private Color _baseColor;
 
     private FeatureManipulation _featureManipulation;
+
+    public Vector2 featureRange = new Vector2(0,1);
+    
 
 
     private void Start()
@@ -42,7 +45,6 @@ public class FeatureObject : MonoBehaviour
     public void UnChoose()
     {
         _meshRenderer.material = _startingMaterial;
-        _isInUse = false;
         gameObject.GetComponent<XRGrabInteractable>().enabled = true;
     }
 
@@ -88,6 +90,7 @@ public class FeatureObject : MonoBehaviour
             transform.localScale = Vector3.one;
 
             SocketClass socketClass = _socketObject.GetComponent<SocketClass>();
+            _lastSocket = _socketObject;
 
             GameObject objectCurrentlyInSocket = socketClass.GetFeatureObject();
             if (objectCurrentlyInSocket != null)
@@ -107,10 +110,19 @@ public class FeatureObject : MonoBehaviour
             
             return;
         }
-        
 
-        transform.SetParent(_boardObject.transform);
+        if (_lastSocket != null)
+        {
+            SocketClass socketClass = _lastSocket.GetComponent<SocketClass>();
+            if (socketClass.isManipulationSocket)
+            {
+                _featureManipulation.ManipulateData(feature, featureRange); // the range defined
+            }
+            
+            socketClass.AssignFeatureObject(null);
+        }
         
+        transform.SetParent(_boardObject.transform);
         gameObject.GetComponent<Collider>().isTrigger = false;
         
         transform.localPosition = boardPosition;
@@ -122,10 +134,6 @@ public class FeatureObject : MonoBehaviour
 
     private void Update()
     {
-        if (_isInUse)
-        {
-            _meshRenderer.material = inUseMaterial;
-        }
     }
 
     public void SetText(string text)

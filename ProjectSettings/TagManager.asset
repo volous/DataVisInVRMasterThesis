@@ -9,6 +9,7 @@ TagManager:
   - ExitTriggerBox
   - DimentionCollider
   - Socket
+  - Controller
   layers:
   - Default
   - TransparentFX

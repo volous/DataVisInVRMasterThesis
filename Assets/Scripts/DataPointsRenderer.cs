@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Random = UnityEngine.Random;
 
 public class DataPointsRenderer : MonoBehaviour
@@ -26,7 +27,9 @@ public class DataPointsRenderer : MonoBehaviour
     public string scale;
     public string col;
 
-    private string[,] _dataArray;
+    private string[,] _originalDataArray;
+    private string[,] _manipulatedDataArray;
+    
     private string[] _headers;
     private bool _isRunning;
     private Vector3[] _position;
@@ -57,9 +60,10 @@ public class DataPointsRenderer : MonoBehaviour
 
     public void ReciveDataMatrix(string[,] dataArray, string[] headers)
     {
-        _dataArray = dataArray;
+        _originalDataArray = dataArray; // the array to be read by for original data values
+        _manipulatedDataArray = dataArray; // the array to be used for displaying the data
         _headers = headers;
-        
+    
         featureObjectsHandeler.ReciveFeatureString(_headers);
         //BeginRendering();
     }
@@ -89,8 +93,8 @@ public class DataPointsRenderer : MonoBehaviour
     {
         _isRunning = true;
         pointCloudRenderer._vfx.enabled = true;
-        int nRows = _dataArray.GetLength(0) -1;
-        int nFeatures = _dataArray.GetLength(1)-1;
+        int nRows = _manipulatedDataArray.GetLength(0) -1;
+        int nFeatures = _manipulatedDataArray.GetLength(1)-1;
         
         _position = new Vector3[nRows];
         _scales = new float[nRows];
@@ -102,16 +106,16 @@ public class DataPointsRenderer : MonoBehaviour
         for (int row = 0; row < nRows; row++)
         {
             _position[row] = new Vector3(
-                float.Parse(_dataArray[row, FeatureBasedOnHeader(posX)]) * RederingArea,
-                float.Parse(_dataArray[row, FeatureBasedOnHeader(posY)]) * RederingArea,
-                float.Parse(_dataArray[row, FeatureBasedOnHeader(posZ)]) * RederingArea
+                float.Parse(_manipulatedDataArray[row, FeatureBasedOnHeader(posX)]) * RederingArea,
+                float.Parse(_manipulatedDataArray[row, FeatureBasedOnHeader(posY)]) * RederingArea,
+                float.Parse(_manipulatedDataArray[row, FeatureBasedOnHeader(posZ)]) * RederingArea
             );
         }
 
         //scales
         for (int row = 0; row < nRows; row++)
         {
-            _scales[row] = (float.Parse(_dataArray[row, FeatureBasedOnHeader(scale)]) + 0.05f) * size;
+            _scales[row] = (float.Parse(_manipulatedDataArray[row, FeatureBasedOnHeader(scale)]) + 0.05f) * size;
         }
 
         //Meshes
@@ -141,7 +145,7 @@ public class DataPointsRenderer : MonoBehaviour
         // Colors
         for (int row = 0; row < nRows; row++)
         {
-            _colors[row] = RainbowColorFromFloat(float.Parse(_dataArray[row, FeatureBasedOnHeader(col)]));
+            _colors[row] = RainbowColorFromFloat(float.Parse(_manipulatedDataArray[row, FeatureBasedOnHeader(col)]));
         }
 
         // Materials
@@ -174,7 +178,7 @@ public class DataPointsRenderer : MonoBehaviour
         pointCloudRenderer._vfx.enabled = false;
     }
 
-    public string[] GetFeatureFromName(string name)
+    int LoactionFromName(string name)
     {
         //first get the location int of the feature based on the name
         int location = 0;
@@ -183,16 +187,36 @@ public class DataPointsRenderer : MonoBehaviour
             if (_headers[i] == name)
             {
                 location = i;
-                break;
+                return i;
             }
         }
 
-        string[] returnSting = new String[_dataArray.GetLength(0)]; // create a new aray the size of the number of instances in the dataset
-        for (int i = 0; i < _dataArray.GetLength(0) - 1; i++)
+        Debug.Log("ERROR - no feature found with that name");
+        return -1; // this only returns if faliar to find name
+    }
+    
+    public string[] GetFeatureFromName(string name)
+    {
+        //first get the location int of the feature based on the name
+        int location = LoactionFromName(name);
+
+        string[] returnSting = new String[_manipulatedDataArray.GetLength(0)]; // create a new aray the size of the number of instances in the dataset
+        for (int i = 0; i < _manipulatedDataArray.GetLength(0) - 1; i++)
         {
-            returnSting[i] = _dataArray[i, location]; // set the return list to the values from the full data array
+            returnSting[i] = _manipulatedDataArray[i, location]; // set the return list to the values from the full data array
         }
 
         return returnSting;
+    }
+
+    public void ChangeFeaturesForName(string name, string[] manipulatedFeatures)
+    {
+        //first get the location int of the feature based on the name
+        int location = LoactionFromName(name);
+
+        for (int i = 0; i < manipulatedFeatures.Length; i++) // for each instance in the list of feature
+        {
+            _manipulatedDataArray[i, location] = manipulatedFeatures[i]; // change that feature arcording to the list
+        }
     }
 }
