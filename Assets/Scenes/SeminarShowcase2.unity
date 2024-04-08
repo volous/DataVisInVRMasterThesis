@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 1
   functionToCall:
@@ -842,6 +843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 0}
   ID: 0
   functionToCall:
@@ -1252,6 +1254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 4
   functionToCall:
@@ -2779,6 +2782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 2
   functionToCall:
@@ -3469,7 +3473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac98275789321a7478642ec7a4c66d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvToRead: LargeData1mil
+  csvToRead: {fileID: 0}
 --- !u!114 &1253388718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3695,6 +3699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 3
   functionToCall:
@@ -3858,6 +3863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 0
   functionToCall:
@@ -4612,7 +4618,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axiesObject: {fileID: 514553318}
+  boardObject: {fileID: 0}
   xButtonDownRight: {fileID: 8319409193046047542, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  bButtonDownRight: {fileID: 0}
 --- !u!4 &1728648982 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 98e9ce64eaea82d4283c6ccb459b687f, type: 3}
