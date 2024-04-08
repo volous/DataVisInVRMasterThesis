@@ -5,8 +5,6 @@ using UnityEngine;
 public class FeatureManipulation : MonoBehaviour
 {
     public DataPointsRenderer DPR;
-
-    public Vector2 TestRange; // (DELETE THIS) for testing only
     
     private string[] _dataInFeature;
     

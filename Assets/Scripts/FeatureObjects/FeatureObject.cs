@@ -28,12 +28,13 @@ public class FeatureObject : MonoBehaviour
 
     private FeatureManipulation _featureManipulation;
 
-    public Vector2 featureRange = new Vector2(0,1);
+    public Vector2 featureRange;
     
 
 
     private void Start()
     {
+        featureRange = new Vector2(0,1);
         _boardObject = transform.parent.gameObject;
         boardPosition = gameObject.transform.localPosition;
         _meshRenderer = gameObject.GetComponent<MeshRenderer>();
