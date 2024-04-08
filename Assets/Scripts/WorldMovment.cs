@@ -37,11 +37,11 @@ public class WorldMovment : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        triggerRight.action.performed += RightTriggerPressed;
-        triggerRight.action.canceled += RightTriggerLetGo;
-        
-        triggerLeft.action.performed += LeftTriggerPressed;
-        triggerLeft.action.canceled += LeftTriggerLetGo;
+        // triggerRight.action.performed += RightTriggerPressed;
+        // triggerRight.action.canceled += RightTriggerLetGo;
+        //
+        // triggerLeft.action.performed += LeftTriggerPressed;
+        // triggerLeft.action.canceled += LeftTriggerLetGo;
         
         _translationDir = Vector3.zero;
         _initialScale = xrRig.transform.localScale;
