@@ -44,9 +44,9 @@ public class FeatureObjectsHandeler : MonoBehaviour
             }
 
             Vector3 newPosition = new Vector3(
-                firstFeaturePosition.x ,
-                firstFeaturePosition.y - ySpacing * yMultyplier,
-                firstFeaturePosition.z + xSpacing * xMultyplier);
+                firstFeaturePosition.x + xSpacing * xMultyplier, 
+                firstFeaturePosition.y ,
+                firstFeaturePosition.z - ySpacing * yMultyplier);
 
             yMultyplier++;
 
@@ -59,7 +59,7 @@ public class FeatureObjectsHandeler : MonoBehaviour
                 scalerCube.x / scalerBoard.x,
                 scalerCube.y / scalerBoard.y,
                 scalerCube.z / scalerBoard.z);
-            newInteractionCube.transform.localRotation = featureBoard.transform.rotation * new Quaternion(34, 0 , -90, 0);
+            newInteractionCube.transform.localRotation = featureBoard.transform.rotation;//* new Quaternion(34, 0 , -90, 0);
             newInteractionCube.name = _featureStrings[featureString];
             newInteractionCube.transform.localPosition = newPosition - new Vector3(0, 0, 0); 
             

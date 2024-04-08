@@ -9,6 +9,7 @@ public class FeatureObject : MonoBehaviour
 {
     public string feature;
     public Vector3 boardPosition;
+    public Quaternion boardRotation;
     public Vector3 boardScaler;
     public Material inUseMaterial;
     public FeatureObjectsHandeler featureObjectsHandeler;
@@ -37,6 +38,7 @@ public class FeatureObject : MonoBehaviour
         featureRange = new Vector2(0,1);
         _boardObject = transform.parent.gameObject;
         boardPosition = gameObject.transform.localPosition;
+        boardRotation = gameObject.transform.localRotation;
         _meshRenderer = gameObject.GetComponent<MeshRenderer>();
         _startingMaterial = _meshRenderer.material;
         dimentionSelectionHandeler = GameObject.Find("DimentionSelectionHandeler").GetComponent<DimentionSelectionHandeler>();
@@ -51,7 +53,7 @@ public class FeatureObject : MonoBehaviour
 
     public void ReturnToBoardPosition()
     {
-        transform.localPosition = boardPosition;
+        transform.position = boardPosition;
     }
 
     public string GetFeature()
@@ -87,7 +89,7 @@ public class FeatureObject : MonoBehaviour
         {
             transform.SetParent(_socketObject.transform);
             transform.localPosition = Vector3.zero;
-            transform.localRotation = _socketObject.transform.localRotation;
+            transform.rotation = _socketObject.transform.rotation;
             transform.localScale = Vector3.one;
 
             SocketClass socketClass = _socketObject.GetComponent<SocketClass>();
@@ -128,8 +130,8 @@ public class FeatureObject : MonoBehaviour
         
         transform.localPosition = boardPosition;
         transform.localScale = boardScaler;
-        transform.localRotation = new Quaternion(0, 0, 0, 0);
-        
+        transform.localRotation = boardRotation;
+
     }
     
 
