@@ -3869,7 +3869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac98275789321a7478642ec7a4c66d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvToRead: {fileID: 4900000, guid: 262232cf48402c5489ac64dd5a7583d0, type: 3}
+  csvToRead: {fileID: 4900000, guid: 81977c30d47e27c44a5b9eb2c6d877be, type: 3}
 --- !u!114 &1253388718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6504,7 +6504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6645823805407057194
 Transform:
   m_ObjectHideFlags: 0
