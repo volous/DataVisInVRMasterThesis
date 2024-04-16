@@ -5,47 +5,37 @@ using System.IO;
 
 public class csvReader : MonoBehaviour
 {
-    public string csvFilePath; // Specify the path to your CSV file
-    
-    private DataPointsRenderer DPR;
+    public TextAsset csvToRead;
+        
+    private DataPointsRenderer DPR; // DataPointsRenderer is a class for handeling the visualization of the data
     void Start()
     {
-        DPR = this.gameObject.GetComponent<DataPointsRenderer>();
+        DPR = this.gameObject.GetComponent<DataPointsRenderer>(); // find the DPR class, located on this gameobject
+        StartRead();
     }
 
-    [ContextMenu("Start Read CSV")]
-    public void StartRead()
+    [ContextMenu("Start Read CSV")] // alowes for the function to run from the editor
+    public void StartRead() 
     {
-        string path = csvFilePath + "\\file.csv";
+        string path = Application.dataPath + "\\CSVs\\" + csvToRead.name + ".csv"; // the path location to the file called file, in the CVSs folder in the assets folder
         
-        // Read the CSV file and create the array
-        string[] headers;
-        string[,] dataArray = ReadCSVFile(path, out headers);
+        string[] headers; // array of strings for the top line, aka the headers
+        string[,] dataMatrix = ReadCSVFile(path, out headers); // a string Matrix for the rest of the data file
         
-        for (int i = 0; i < headers.Length; i++)
-        {
-            Debug.Log(headers[i]);
-        }
-        
-        InstaciateCubes(dataArray);
+        DPR.ReciveDataMatrix(dataMatrix, headers); // calles the rendering function in the DataRenderer
         
     }
     
-    void InstaciateCubes(string[,] dataArray)
+    string[,] ReadCSVFile(string path, out string[] headers) // function for reading the CSV file
     {
-        DPR.ReciveDataMatrix(dataArray);
-    }
-
-    string[,] ReadCSVFile(string path, out string[] headers)
-    {
-        string[] lines = File.ReadAllLines(path);
+        string[] lines = File.ReadAllLines(path); // an array of all rows and all text in them exe: (patient0,123,4,56,yes,78,true,9)
 
         // Assuming that the CSV file has rows and columns
-        int numRows = lines.Length;
+        int numRows = lines.Length; // number of
         int numCols = lines[0].Split(',').Length;
 
         headers = new string[numCols];
-        string[,] dataArray = new string[numRows, numCols];
+        string[,] dataMatrix = new string[numRows, numCols];
 
         for (int i = 0; i < numRows; i++)
         {
@@ -55,7 +45,6 @@ public class csvReader : MonoBehaviour
             {
                 for (int j = 0; j < numCols; j++)
                 {
-                    
                     headers[j] = values[j];
                 }
             }
@@ -63,13 +52,11 @@ public class csvReader : MonoBehaviour
             {
                 for (int j = 0; j < numCols; j++)
                 {
-                    dataArray[i-1, j] = values[j];
+                    dataMatrix[i-1, j] = values[j];
                 }
             }
-            
-            
         }
         
-        return dataArray;
+        return dataMatrix;
     }
 }

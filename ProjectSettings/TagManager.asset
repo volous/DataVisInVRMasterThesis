@@ -7,6 +7,9 @@ TagManager:
   - Portal
   - TimeCodeButton
   - ExitTriggerBox
+  - DimentionCollider
+  - Socket
+  - Controller
   layers:
   - Default
   - TransparentFX
