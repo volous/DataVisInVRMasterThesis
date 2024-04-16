@@ -6,6 +6,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Slider : MonoBehaviour
 {
+    public FeatureManipulation featureManipulation;
+    
     public GameObject minSliderHandle;
     public GameObject maxSliderHandle;
 
@@ -69,6 +71,20 @@ public class Slider : MonoBehaviour
         }
     }
 
+    public void SetSliderValues(Vector2 setRange)
+    {
+        float nexMaxX = (_maxStartingX - _minStartingX) * setRange.y + _minStartingX;
+        float nexMinX = (_maxStartingX - _minStartingX) * setRange.x + _minStartingX;
+        
+        maxSliderHandle.transform.localPosition = new Vector3(nexMaxX,
+            maxSliderHandle.transform.localPosition.y,
+            maxSliderHandle.transform.localPosition.z);
+        
+        minSliderHandle.transform.localPosition = new Vector3(nexMinX,
+            minSliderHandle.transform.localPosition.y,
+            minSliderHandle.transform.localPosition.z);
+    }
+
     public void MoveSlider(bool maxSlider)
     {
         GameObject handThatGrabed = maxSlider
@@ -106,10 +122,12 @@ public class Slider : MonoBehaviour
         if (maxSlider)
         {
             _maxIsMoving = false;
+            featureManipulation.maxSliderCurrentValue = NormalizeValue(maxSliderHandle.transform.position.x);
         }
         else
         {
             _minIsMoving = false;
+            featureManipulation.minSliderCurrentValue = NormalizeValue(minSliderHandle.transform.position.x);
         }
             
     }

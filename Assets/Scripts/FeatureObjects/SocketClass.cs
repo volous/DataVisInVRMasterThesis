@@ -8,6 +8,10 @@ using UnityEngine.Events;
 public class SocketClass : MonoBehaviour
 {
 
+    // for manipulator socket only
+    public Slider slider;
+    public DataPointsRenderer DPR;
+    
     private GameObject _featureObject;
     public bool isManipulationSocket;
     public DimentionSelectionHandeler _dimentionSelectionHandeler;
@@ -42,6 +46,12 @@ public class SocketClass : MonoBehaviour
 
         _dimentionSelectionHandeler.AssignChoice(null, ID);
         _featureObject = null;
+    }
+
+    public void SetSliderValues(FeatureObject featureObject)
+    {
+        DPR.ResetFeatureFromName(featureObject.name);
+        //slider.SetSliderValues(new Vector2(range.x, range.y));
     }
 
     private void Update()

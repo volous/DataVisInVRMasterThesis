@@ -92,6 +92,18 @@ public class FeatureObject : MonoBehaviour
             transform.rotation = _socketObject.transform.rotation;
             transform.localScale = Vector3.one;
 
+            
+            if (_lastSocket != null)
+            {
+                SocketClass lastSocketClass = _lastSocket.GetComponent<SocketClass>();
+                if (lastSocketClass.isManipulationSocket)
+                {
+                    _featureManipulation.ManipulateData(feature, featureRange, this); // the range defined
+                }
+            
+                lastSocketClass.AssignFeatureObject(null);
+            }
+            
             SocketClass socketClass = _socketObject.GetComponent<SocketClass>();
             _lastSocket = _socketObject;
 
@@ -109,6 +121,7 @@ public class FeatureObject : MonoBehaviour
             else
             {
                 _featureManipulation.DataFromDPR(feature);
+                socketClass.SetSliderValues(this);
             }
             
             return;
@@ -119,7 +132,7 @@ public class FeatureObject : MonoBehaviour
             SocketClass socketClass = _lastSocket.GetComponent<SocketClass>();
             if (socketClass.isManipulationSocket)
             {
-                _featureManipulation.ManipulateData(feature, featureRange); // the range defined
+                _featureManipulation.ManipulateData(feature, featureRange, this); // the range defined
             }
             
             socketClass.AssignFeatureObject(null);

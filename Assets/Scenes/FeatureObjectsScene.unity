@@ -156,6 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
+  DPR: {fileID: 0}
   isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 1
@@ -413,6 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be04305ef871ce8418493b176b93bd8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  featureManipulation: {fileID: 1104334633}
   minSliderHandle: {fileID: 2120350769}
   maxSliderHandle: {fileID: 1970131649}
   rightHand: {fileID: 224771155}
@@ -1073,6 +1076,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 109948475}
+  DPR: {fileID: 1253388716}
   isManipulationSocket: 1
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: -1
@@ -1472,6 +1477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
+  DPR: {fileID: 0}
   isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 4
@@ -3133,6 +3140,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DPR: {fileID: 1253388716}
+  maxSliderCurrentValue: 1
+  minSliderCurrentValue: 0
 --- !u!1 &1129408293
 GameObject:
   m_ObjectHideFlags: 0
@@ -3166,6 +3175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
+  DPR: {fileID: 0}
   isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 2
@@ -4084,6 +4095,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
+  DPR: {fileID: 0}
   isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 3
@@ -4248,6 +4261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2083090156670340816c7c9871dadc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
+  DPR: {fileID: 0}
   isManipulationSocket: 0
   _dimentionSelectionHandeler: {fileID: 146518393}
   ID: 0

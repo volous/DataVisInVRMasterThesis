@@ -209,6 +209,18 @@ public class DataPointsRenderer : MonoBehaviour
         return returnSting;
     }
 
+    public void ResetFeatureFromName(string name)
+    {
+        Debug.Log("Reset " + name);
+        //first get the location int of the feature based on the name
+        int location = LoactionFromName(name);
+
+        for (int i = 0; i < _manipulatedDataArray.Length; i++) // for each instance in the list of feature
+        {
+            _manipulatedDataArray[i, location] = _originalDataArray[i, location];
+        }
+    }
+
     public void ChangeFeaturesForName(string name, string[] manipulatedFeatures)
     {
         //first get the location int of the feature based on the name
