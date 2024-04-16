@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Random = UnityEngine.Random;
+using System.Diagnostics;
 
 public class DataPointsRenderer : MonoBehaviour
 {
@@ -91,11 +92,12 @@ public class DataPointsRenderer : MonoBehaviour
 
     public void BeginRendering()
     {
+        Stopwatch stopwatch = Stopwatch.StartNew();
         _isRunning = true;
         pointCloudRenderer._vfx.enabled = true;
-        int nRows = _manipulatedDataArray.GetLength(0) -1;
-        int nFeatures = _manipulatedDataArray.GetLength(1)-1;
-        
+        int nRows = _manipulatedDataArray.GetLength(0) - 1;
+
+        // Initialize arrays
         _position = new Vector3[nRows];
         _scales = new float[nRows];
         _meshes = new Mesh[nRows];
@@ -118,29 +120,6 @@ public class DataPointsRenderer : MonoBehaviour
             _scales[row] = (float.Parse(_manipulatedDataArray[row, FeatureBasedOnHeader(scale)]) + 0.05f) * size;
         }
 
-        //Meshes
-        for (int row = 0; row < nRows; row++)
-        {
-            Mesh meshCopy = new Mesh();
-            meshCopy.vertices = _mesh.vertices;
-            meshCopy.triangles = _mesh.triangles;
-            meshCopy.normals = _mesh.normals;
-            meshCopy.uv = _mesh.uv;
-
-            // Scale the vertices of the copied mesh
-            Vector3[] scaledVertices = new Vector3[meshCopy.vertices.Length];
-            for (int i = 0; i < meshCopy.vertices.Length; i++)
-            {
-                scaledVertices[i] = meshCopy.vertices[i] * _scales[row];
-            }
-
-            // Update the vertices of the copied mesh
-            meshCopy.vertices = scaledVertices;
-
-
-            _meshes[row] = meshCopy;
-        }
-
 
         // Colors
         for (int row = 0; row < nRows; row++)
@@ -148,16 +127,9 @@ public class DataPointsRenderer : MonoBehaviour
             _colors[row] = RainbowColorFromFloat(float.Parse(_manipulatedDataArray[row, FeatureBasedOnHeader(col)]));
         }
 
-        // Materials
-        for (int row = 0; row < nRows; row++)
-        {
-            Material nMat = new Material(_material);
-            nMat.color = _colors[row];
-            _materials[row] = nMat;
-        }
-        
         pointCloudRenderer.SetParticals(_position, _scales, _colors);
     }
+    
 
     Color RainbowColorFromFloat(float value)
     {
@@ -191,7 +163,7 @@ public class DataPointsRenderer : MonoBehaviour
             }
         }
 
-        Debug.Log("ERROR - no feature found with that name");
+        //Debug.Log("ERROR - no feature found with that name");
         return -1; // this only returns if faliar to find name
     }
     
@@ -211,7 +183,7 @@ public class DataPointsRenderer : MonoBehaviour
 
     public void ResetFeatureFromName(string name)
     {
-        Debug.Log("Reset " + name);
+        //Debug.Log("Reset " + name);
         //first get the location int of the feature based on the name
         int location = LoactionFromName(name);
 
@@ -223,6 +195,7 @@ public class DataPointsRenderer : MonoBehaviour
 
     public void ChangeFeaturesForName(string name, string[] manipulatedFeatures)
     {
+        //Debug.Log("change for name");
         //first get the location int of the feature based on the name
         int location = LoactionFromName(name);
 
