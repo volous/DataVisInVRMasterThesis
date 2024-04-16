@@ -223,6 +223,7 @@ public class DataPointsRenderer : MonoBehaviour
 
     public void ChangeFeaturesForName(string name, string[] manipulatedFeatures)
     {
+        Debug.Log("change for name");
         //first get the location int of the feature based on the name
         int location = LoactionFromName(name);
 
