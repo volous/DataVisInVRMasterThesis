@@ -134,7 +134,7 @@ public class DataPointsRenderer : MonoBehaviour
     Color RainbowColorFromFloat(float value)
     {
         // Hue goes from 0 to 1, representing the entire color spectrum
-        float hue = value / 2; // devided by 2 becous hue is a circle, so 0 and 1 would be the same color
+        float hue = value / 2; // divided by 2 because hue is a circle, so 0 and 1 would be the same color
 
         // Saturation and value are set to 1 for full color intensity
         float saturation = 1f;
@@ -172,7 +172,7 @@ public class DataPointsRenderer : MonoBehaviour
         //first get the location int of the feature based on the name
         int location = LoactionFromName(name);
 
-        string[] returnSting = new String[_manipulatedDataArray.GetLength(0)]; // create a new aray the size of the number of instances in the dataset
+        string[] returnSting = new String[_manipulatedDataArray.GetLength(0)]; // create a new array the size of the number of instances in the dataset
         for (int i = 0; i < _manipulatedDataArray.GetLength(0) - 1; i++)
         {
             returnSting[i] = _manipulatedDataArray[i, location]; // set the return list to the values from the full data array
