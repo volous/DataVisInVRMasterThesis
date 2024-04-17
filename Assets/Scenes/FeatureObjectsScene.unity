@@ -2741,8 +2741,8 @@ MonoBehaviour:
   maxScaleThreshold: 100
   movementMultiplier: 3
   translationSpeed: 0
-  leftTriggerReference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  rightTriggerReference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftTriggerReference: {fileID: -3742484312079769484, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rightTriggerReference: {fileID: 15759602096507913, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rightJoyClick: {fileID: 2757480806359094700, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1 &930420379
 GameObject:
@@ -3869,7 +3869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac98275789321a7478642ec7a4c66d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvToRead: {fileID: 4900000, guid: 81977c30d47e27c44a5b9eb2c6d877be, type: 3}
+  csvToRead: {fileID: 4900000, guid: cc440c9a28ab04247974b4cf5cbf02d7, type: 3}
 --- !u!114 &1253388718
 MonoBehaviour:
   m_ObjectHideFlags: 0
