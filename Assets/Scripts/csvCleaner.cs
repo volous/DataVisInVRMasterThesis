@@ -22,13 +22,122 @@ public class csvCleaner : MonoBehaviour
 
         string[] headers;
         string[,] dataMatrix = ReadCSVFile(path, out headers);
-        ParseData(dataMatrix);
+        //ParseData(dataMatrix);
+        SplitFile(dataMatrix);
     }
 
+    public void SplitFile(string[,] _data)
+    {
+        int nRows = _data.GetLength(0);
+        int nCols = _data.GetLength(1);
+
+        float[,] _numericData = new float[nRows,nCols];
+        string[,] _categoricData = new string[nRows,nCols];
+        float[,] _convertedCategoricalData = new float[nRows, nCols];
+        for (int row = 0; row < nRows; row++)
+        {
+            for (int col = 0; col < nCols; col++)
+            {
+                if(_data[row,col] == null) continue;
+                
+                float tmp;
+                if (float.TryParse(_data[row, col], out tmp))
+                {
+                    _numericData[row, col] = tmp;
+                }
+                else
+                {
+                    _categoricData[row, col] = _data[row, col];
+                }
+            }
+            _convertedCategoricalData = ConvertToNum(_categoricData);
+            RemoveCount(MergeMatrices(_numericData, _convertedCategoricalData));
+        }
+    }
+
+    public static float[,] ConvertToNum(string[,] _data)
+    {
+        int _rows = _data.GetLength(0);
+        int _cols = _data.GetLength(1);
+
+        float[,] _dataConverted = new float[_rows, _cols];
+
+        List<Dictionary<string, float>> mapping = new List<Dictionary<string, float>>();
+
+        for (int col = 0; col < _cols; col++)
+        {
+            mapping.Add(new Dictionary<string, float>());
+        }
+
+        for (int col = 0; col < _cols; col++)
+        {
+            HashSet<string> uniqueValuesSet = new HashSet<string>();
+
+            for (int row = 0; row < _rows; row++)
+            {
+                uniqueValuesSet.Add(_data[row, col]);
+            }
+
+            List<string> uniqueValuesList = new List<string>(uniqueValuesSet);
+
+            int count = uniqueValuesList.Count;
+            float step = 1.0f / (count - 1);
+
+            for (int i = 0; i < uniqueValuesList.Count; i++)
+            {
+                string currentValue = uniqueValuesList[i];
+                float normalizeCurrentValue = i * step;
+                if(uniqueValuesList[i] == null) continue;
+                mapping[col].Add(currentValue, normalizeCurrentValue);
+            }
+
+            for (int row = 0; row < _rows; row++)
+            {
+                string currentValue = _data[row, col];
+                if(currentValue == null) continue;
+                _dataConverted[row, col] = mapping[col][currentValue];
+            }
+        }
+
+        return _dataConverted;
+    }
+
+    public static float[,] MergeMatrices(float[,] array1, float[,] array2)
+    {
+        // Get dimensions of the arrays
+        int rows1 = array1.GetLength(0)-1;
+        int cols1 = array1.GetLength(1)-1;
+        int rows2 = array2.GetLength(0)-1;
+        int cols2 = array2.GetLength(1)-1;
+
+        // Create a new array to hold the merged result
+        float[,] mergedArray = new float[rows1, cols1 + cols2];
+
+        // Copy elements from the first array to the merged array
+        for (int i = 0; i < rows1; i++)
+        {
+            for (int j = 0; j < cols1; j++)
+            {
+                mergedArray[i, j] = array1[i, j];
+            }
+        }
+
+        // Copy elements from the second array to the merged array
+        for (int i = 0; i < rows2; i++)
+        {
+            for (int j = 0; j < cols2; j++)
+            {
+                mergedArray[i, j + cols1] = array2[i, j];
+            }
+        }
+
+        return mergedArray;
+    }
+    
     public void ParseData(string[,] _data)
     {
-        int nRows = _data.GetLength(0) - 1;
-        int nCols = _data.GetLength(1) - 1;
+        int nRows = _data.GetLength(0);
+        int nCols = _data.GetLength(1);
         float[,] newData = new float[nRows,nCols];
         for (int row = 0; row < nRows; row++)
         {
@@ -37,14 +146,14 @@ public class csvCleaner : MonoBehaviour
                 newData[row, collumns] = float.Parse(_data[row, collumns]);
             }
         }
-        RemoveCount(newData);
     }
+
     
     public void RemoveCount(float[,] _data)
     {
         int columnToCheck = 0;
-        int nRows = _data.GetLength(0) - 1;
-        int nCols = _data.GetLength(1) - 1;
+        int nRows = _data.GetLength(0);
+        int nCols = _data.GetLength(1);
         
         float[,] newMatrix = new float[nRows, nCols];
 
@@ -81,8 +190,8 @@ public class csvCleaner : MonoBehaviour
     public void CheckHandleNull(float[,] _data)
     {
         Debug.Log(_data[3,2]);
-        int nRows = _data.GetLength(0) - 1;
-        int nCols = _data.GetLength(1) - 1;
+        int nRows = _data.GetLength(0);
+        int nCols = _data.GetLength(1);
         for (int i = 0; i < nRows; i++)
         {
             for (int j = 0; j < nCols; j++)
