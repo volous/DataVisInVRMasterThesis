@@ -701,9 +701,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   feature: 
   boardPosition: {x: 0, y: 0, z: 0}
+  boardRotation: {x: 0, y: 0, z: 0, w: 0}
   boardScaler: {x: 0, y: 0, z: 0}
   inUseMaterial: {fileID: 2100000, guid: 5a825b5614e27434c9ceeb6c5e57aaf6, type: 2}
   featureObjectsHandeler: {fileID: 0}
   dimentionSelectionHandeler: {fileID: 0}
   featureTextFront: {fileID: 6413380963173094524}
   featureTextTop: {fileID: 1963354044146035020}
+  featureRange: {x: 0, y: 0}
