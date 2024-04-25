@@ -9,13 +9,15 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 public class csvCleaner : MonoBehaviour
 {
     public TextAsset selectedFile;
+    string[,] arr1 =  { { "1", "2" }, { "a", "b" }, { "4", "6" }, { "c", "d" } };
     
+    [ContextMenu("Clean CSV")]
     private void Start()
     {
         GetFile();
     }
 
-    [ContextMenu("Clean CSV")]
+    
     public void GetFile()
     {
         string path = Application.dataPath + "\\RawCSVs\\" + selectedFile.name + ".csv";
@@ -50,9 +52,10 @@ public class csvCleaner : MonoBehaviour
                     _categoricData[row, col] = _data[row, col];
                 }
             }
-            _convertedCategoricalData = ConvertToNum(_categoricData);
-            RemoveCount(MergeMatrices(_numericData, _convertedCategoricalData));
         }
+        _convertedCategoricalData = ConvertToNum(_categoricData);
+        NormalizeData(_numericData);
+        SaveMatrixToCSV(CheckHandleNull(MergeMatrices(_numericData, _convertedCategoricalData)), Application.dataPath + "\\ModifiedCSVs\\" + selectedFile.name + ".csv");
     }
 
     public static float[,] ConvertToNum(string[,] _data)
@@ -105,10 +108,10 @@ public class csvCleaner : MonoBehaviour
     public static float[,] MergeMatrices(float[,] array1, float[,] array2)
     {
         // Get dimensions of the arrays
-        int rows1 = array1.GetLength(0)-1;
-        int cols1 = array1.GetLength(1)-1;
-        int rows2 = array2.GetLength(0)-1;
-        int cols2 = array2.GetLength(1)-1;
+        int rows1 = array1.GetLength(0);
+        int cols1 = array1.GetLength(1);
+        int rows2 = array2.GetLength(0);
+        int cols2 = array2.GetLength(1);
 
         // Create a new array to hold the merged result
         float[,] mergedArray = new float[rows1, cols1 + cols2];
@@ -157,10 +160,10 @@ public class csvCleaner : MonoBehaviour
         
         float[,] newMatrix = new float[nRows, nCols];
 
-        for (int i = 0; i < nRows; i++)
+        for (int i = 0; i < nRows-1; i++)
         {
             int k = 0;
-            for (int j = 0; j < nCols; j++)
+            for (int j = 0; j < nCols-1; j++)
             {
                 if (_data[i + 1, 0] - 1 != _data[i, 0]) continue;
                 if (j == columnToCheck) continue;
@@ -187,9 +190,8 @@ public class csvCleaner : MonoBehaviour
         CheckHandleNull(newMatrix);
     }
 
-    public void CheckHandleNull(float[,] _data)
+    public float[,] CheckHandleNull(float[,] _data)
     {
-        Debug.Log(_data[3,2]);
         int nRows = _data.GetLength(0);
         int nCols = _data.GetLength(1);
         for (int i = 0; i < nRows; i++)
@@ -203,8 +205,9 @@ public class csvCleaner : MonoBehaviour
                 
             }
         }
-        Debug.Log(_data[3,2]);
-        NormalizeData(_data);
+        //Debug.Log(_data[3,2]);
+        //NormalizeData(_data);
+        return _data;
     }
 
     float FindMode(float[,] _data)
@@ -233,7 +236,7 @@ public class csvCleaner : MonoBehaviour
 
         int rows = _data.GetLength(0);
         int cols = _data.GetLength(1);
-        
+        Debug.Log(_data[0,0]);
         float[] minValues = new float[cols];
         float[] maxValues = new float[cols];
         
@@ -259,7 +262,7 @@ public class csvCleaner : MonoBehaviour
                 _data[i, j] = (_data[i, j] - columnMin) / (columnMax - columnMin);
             }
         }
-        SaveMatrixToCSV(_data, Application.dataPath + "\\ModifiedCSVs\\" + selectedFile.name + ".csv");
+        //SaveMatrixToCSV(_data, Application.dataPath + "\\ModifiedCSVs\\" + selectedFile.name + ".csv");
     }
     
     public void SaveMatrixToCSV(float[,] matrix, string filePath)
