@@ -20,6 +20,7 @@ public class DataPointsRenderer : MonoBehaviour
     
     public float size = 1;
     public FeatureObjectsHandeler featureObjectsHandeler;
+    public GlyphGrapping glyphGrapping;
     
     [Header("Dimentions")] 
     public string posX;
@@ -127,7 +128,9 @@ public class DataPointsRenderer : MonoBehaviour
             _colors[row] = RainbowColorFromFloat(float.Parse(_manipulatedDataArray[row, FeatureBasedOnHeader(col)]));
         }
 
+        glyphGrapping.ReciveVector3List(_position.ToList());
         pointCloudRenderer.SetParticals(_position, _scales, _colors);
+        
     }
     
 
@@ -147,6 +150,7 @@ public class DataPointsRenderer : MonoBehaviour
 
     public void StopRendering()
     {
+        glyphGrapping.SetGlyphsActive(false);
         pointCloudRenderer._vfx.enabled = false;
     }
 
