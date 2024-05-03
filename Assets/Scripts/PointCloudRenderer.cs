@@ -5,10 +5,12 @@ using UnityEngine.VFX;
 
 public class PointCloudRenderer : MonoBehaviour
 {
+    private float _middlePosition;
     private Texture2D _texColor;
     private Texture2D _texPosScale;
     public VisualEffect _vfx;
-
+    public DataPointsRenderer DPR;
+    
     private uint _resolution = 2048;
 
     public float particalSize;
@@ -18,6 +20,7 @@ public class PointCloudRenderer : MonoBehaviour
     private void Start()
     {
         _vfx = GetComponent<VisualEffect>();
+        _middlePosition = 0;// DPR.RederingArea / 2;
     }
 
     private void Update()
@@ -50,7 +53,7 @@ public class PointCloudRenderer : MonoBehaviour
             {
                 int index = x + y * texWidht;
                 _texColor.SetPixel(x,y, colors[index]);
-                var data = new Color(positions[index].x , positions[index].y , positions[index].z , scales[index] * particalSize);
+                var data = new Color(positions[index].x -_middlePosition, positions[index].y -_middlePosition , positions[index].z -_middlePosition, scales[index] * particalSize);
                 _texPosScale.SetPixel(x, y, data);
             }
         }

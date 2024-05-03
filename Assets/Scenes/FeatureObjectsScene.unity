@@ -3871,7 +3871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac98275789321a7478642ec7a4c66d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvToRead: {fileID: 4900000, guid: adcb350e5c08f8e40854ac2576967cba, type: 3}
+  csvToRead: {fileID: 4900000, guid: 262232cf48402c5489ac64dd5a7583d0, type: 3}
 --- !u!114 &1253388718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4589,7 +4589,7 @@ Transform:
   m_GameObject: {fileID: 1555464973}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4609,6 +4609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfx: {fileID: 0}
+  DPR: {fileID: 1253388716}
   particalSize: 0.5
 --- !u!1 &1561232220
 GameObject:
@@ -5733,9 +5734,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa4a2dbac94e2a4d83dd627d2b21cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereOfInfluenceRadius: 1
-  testHandPos: {x: 0, y: 0, z: 0}
-  testPrefab: {fileID: 7825482053152838417, guid: dc29a5cfa92787147b4a99cde2cacb41, type: 3}
+  sphereOfInfluenceRadius: 0.2
+  DPR: {fileID: 1253388716}
+  glyphHighlightSphere: {fileID: 6999485091263929959, guid: 290e3ae2996579e43aaad8ee6848c5a3, type: 3}
   pointCloudRenderer: {fileID: 1555464975}
   rightHandTransform: {fileID: 224771155}
   leftHandTransform: {fileID: 342694814}
