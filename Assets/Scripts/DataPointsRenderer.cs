@@ -105,7 +105,7 @@ public class DataPointsRenderer : MonoBehaviour
         _materials = new Material[nRows];
 
         // positions
-        for (int row = 0; row < nRows; row++)
+        for (int row = 1; row < nRows; row++)
         {
             _position[row] = new Vector3(
                 float.Parse(_manipulatedDataArray[row, FeatureBasedOnHeader(posX)]) * RederingArea,
