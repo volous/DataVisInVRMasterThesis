@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 
 public class GlyphGrapping : MonoBehaviour
@@ -11,7 +12,7 @@ public class GlyphGrapping : MonoBehaviour
     public float sphereOfInfluenceRadius;
     public Vector3 testHandPos;
     public GameObject testPrefab;
-    
+    public VisualEffect pointCloudRenderer;
     
     [Space][Header("Hands")] 
     public Transform rightHandTransform;
@@ -82,6 +83,12 @@ public class GlyphGrapping : MonoBehaviour
     {
         _isGlypsActive = true;
         _vector3List = vector3List;
+
+        foreach (Vector3 v in _vector3List)
+        {
+            Debug.Log(v + pointCloudRenderer.transform.position);
+        }
+        //_vector3List = pointCloudRenderer.GetVector3(0);
     }
 
     public void SetGlyphsActive(bool state)

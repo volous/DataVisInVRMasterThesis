@@ -50,7 +50,7 @@ public class PointCloudRenderer : MonoBehaviour
             {
                 int index = x + y * texWidht;
                 _texColor.SetPixel(x,y, colors[index]);
-                var data = new Color(positions[index].x -8, positions[index].y -8, positions[index].z -8, scales[index] * particalSize);
+                var data = new Color(positions[index].x , positions[index].y , positions[index].z , scales[index] * particalSize);
                 _texPosScale.SetPixel(x, y, data);
             }
         }

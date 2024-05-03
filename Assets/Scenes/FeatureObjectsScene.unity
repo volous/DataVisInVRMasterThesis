@@ -3797,6 +3797,7 @@ Transform:
   - {fileID: 914033549}
   - {fileID: 2101151668}
   - {fileID: 1104334632}
+  - {fileID: 2116684113}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1253388714
@@ -3845,13 +3846,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ddf8bd1971c484f840874893dbdd46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RederingArea: 15
+  RederingArea: 10
   _mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   _material: {fileID: 2100000, guid: 9e3c83d2d8eca554fa9d5f5b9ac9fb25, type: 2}
   transparency: 1
   pointCloudRenderer: {fileID: 1555464977}
   size: 2
   featureObjectsHandeler: {fileID: 1736436225}
+  glyphGrapping: {fileID: 2116684114}
   posX: Size
   posY: Weight
   posZ: Sweetness
@@ -3869,7 +3871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac98275789321a7478642ec7a4c66d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvToRead: {fileID: 4900000, guid: 81977c30d47e27c44a5b9eb2c6d877be, type: 3}
+  csvToRead: {fileID: 4900000, guid: adcb350e5c08f8e40854ac2576967cba, type: 3}
 --- !u!114 &1253388718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3883,8 +3885,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   csvFilePath: C:\UNI\10.Semester\DataVisInVRMasterThesis\Assets\CSVs
-  numDimensions: 10
-  numRows: 1000000
+  numDimensions: 5
+  numRows: 2
 --- !u!1001 &1329666503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4587,7 +4589,7 @@ Transform:
   m_GameObject: {fileID: 1555464973}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 15.01}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5687,6 +5689,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d96773a5afe07d4a9923bc0e0d5d1f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2116684112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2116684113}
+  - component: {fileID: 2116684114}
+  m_Layer: 0
+  m_Name: GlyphGrappingHandeler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2116684113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116684112}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1229539032}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2116684114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116684112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fa4a2dbac94e2a4d83dd627d2b21cd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphereOfInfluenceRadius: 1
+  testHandPos: {x: 0, y: 0, z: 0}
+  testPrefab: {fileID: 7825482053152838417, guid: dc29a5cfa92787147b4a99cde2cacb41, type: 3}
+  pointCloudRenderer: {fileID: 1555464975}
+  rightHandTransform: {fileID: 224771155}
+  leftHandTransform: {fileID: 342694814}
+  triggerRight: {fileID: -3089579068130202224, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  triggerLeft: {fileID: -3825696556402209926, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1 &2120350769
 GameObject:
   m_ObjectHideFlags: 0
