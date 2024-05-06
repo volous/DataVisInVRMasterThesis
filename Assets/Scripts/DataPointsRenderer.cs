@@ -41,10 +41,13 @@ public class DataPointsRenderer : MonoBehaviour
     private Color[] _colors;
     private Material[] _materials;
 
+    private List<Instance> _instancesList;
+
 
     private void Start()
     {
         _isRunning = false;
+        _instancesList = new List<Instance>();
     }
 
     public void SetIsRunning(bool state)
@@ -128,10 +131,32 @@ public class DataPointsRenderer : MonoBehaviour
         {
             _colors[row] = RainbowColorFromFloat(float.Parse(_manipulatedDataArray[row, FeatureBasedOnHeader(col)]));
         }
+        
+        
+        // adds each instance to a list
+        for (int row = 0; row < nRows; row++)
+        {
+            Instance newInstance = new Instance(_position[row], _scales[row], _colors[row]);
+            _instancesList.Add(newInstance);
+        }
 
         glyphGrapping.ReciveVector3List(_position.ToList());
         pointCloudRenderer.SetParticals(_position, _scales, _colors);
         
+    }
+    
+    public struct Instance
+    {
+        public Vector3 Position;
+        public float Scale;
+        public Color Color;
+
+        public Instance(Vector3 pos, float scale, Color color)
+        {
+            this.Position = pos;
+            this.Scale = scale;
+            this.Color = color;
+        }
     }
     
 
@@ -184,6 +209,21 @@ public class DataPointsRenderer : MonoBehaviour
         }
 
         return returnSting;
+    }
+
+    public Instance GetInstanceFromPosition(Vector3 pos)
+    {
+        List<Instance> filteredList = _instancesList.Where(s => s.Position == pos).ToList();
+        if (filteredList.Count > 0)
+        {
+            return filteredList[0];
+        }
+        else
+        {
+            Debug.Log("No matching instance with " + pos);
+            return new Instance();
+        }
+
     }
 
     public void ResetFeatureFromName(string name)

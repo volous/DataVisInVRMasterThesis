@@ -20,7 +20,7 @@ public class PointCloudRenderer : MonoBehaviour
     private void Start()
     {
         _vfx = GetComponent<VisualEffect>();
-        _middlePosition = 0;// DPR.RederingArea / 2;
+        _middlePosition = DPR.RederingArea / 2;
     }
 
     private void Update()

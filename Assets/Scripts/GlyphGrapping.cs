@@ -50,7 +50,7 @@ public class GlyphGrapping : MonoBehaviour
         {
             Destroy(_glyphHighlightLatestSphere);
             Transform pcrTransform = pointCloudRenderer.transform;
-            
+            sphereOfInfluenceRadius = DPR.GetInstanceFromPosition(glyphsInHand[0]).Scale;
             Vector3 glyphPos = GetGlobalChildPosition(pcrTransform.position, glyphsInHand[0], pcrTransform.rotation, pcrTransform.localScale, middleOfRenderer);
             GameObject highlightSphere = Instantiate(glyphHighlightSphere, glyphPos, pointCloudRenderer.transform.rotation);
             highlightSphere.transform.localScale *= sphereOfInfluenceRadius;
@@ -68,14 +68,14 @@ public class GlyphGrapping : MonoBehaviour
     // Function to calculate the global position of the child based on parent's position, child's local position, parent's rotation, and parent's scale
     public static Vector3 GetGlobalChildPosition(Vector3 parentPosition, Vector3 localChildPosition, Quaternion parentRotation, Vector3 parentScale, float middleOfsett)
     {
-        // Vector3 parentPosWithOffset = new Vector3(
-        //     parentPosition.x + middleOfsett,
-        //     parentPosition.y + middleOfsett,
-        //     parentPosition.z + middleOfsett
-        //     );
+        Vector3 childPosWithOffset = new Vector3(
+            localChildPosition.x - middleOfsett,
+            localChildPosition.y - middleOfsett,
+            localChildPosition.z - middleOfsett
+            );
         
         // Apply the parent's scale to the local position of the child
-        Vector3 scaledOffset = Vector3.Scale(localChildPosition, parentScale);
+        Vector3 scaledOffset = Vector3.Scale(childPosWithOffset, parentScale);
 
         // Rotate the scaled local position of the child based on the parent's rotation
         Vector3 rotatedOffset = parentRotation * scaledOffset;
@@ -89,11 +89,10 @@ public class GlyphGrapping : MonoBehaviour
     List<Vector3> CheckMatches()
     {
         if (!_isGlypsActive) return new List<Vector3>();
-        //sphereOfInfluenceRadius = pointCloudRenderer.transform.localScale.x / 2;
         Transform pcrTransform = pointCloudRenderer.transform;
         //Debug.Log(_vector3List[0]+ pointCloudRenderer.transform.position +  " -- " + rightHandTransform.position);
         return _vector3List
-            .Where(v => Vector3.Distance(GetGlobalChildPosition(pcrTransform.position, v, pcrTransform.rotation,pcrTransform.localScale, middleOfRenderer), rightHandTransform.position) <= sphereOfInfluenceRadius)
+            .Where(v => Vector3.Distance(GetGlobalChildPosition(pcrTransform.position, v, pcrTransform.rotation,pcrTransform.localScale, middleOfRenderer), rightHandTransform.position) <= 0.1f)
             .ToList();
     }
 
@@ -101,7 +100,7 @@ public class GlyphGrapping : MonoBehaviour
     {
         Vector3 handPos = rightHandTransform.position;
         List<Vector3> glyphsInHand = CheckMatches();
-        if (glyphsInHand.Count != 0)
+        if (glyphsInHand.Count > 0)
         {
             Debug.Log($"{glyphsInHand[0]} is withing {sphereOfInfluenceRadius} distance from {handPos}");
         }
