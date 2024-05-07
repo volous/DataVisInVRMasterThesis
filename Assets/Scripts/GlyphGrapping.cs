@@ -9,10 +9,14 @@ using UnityEngine.VFX;
 
 public class GlyphGrapping : MonoBehaviour
 {
-    public float sphereOfInfluenceRadius;
+    public float publicSphereOfInfluenceRadius;
+    private float _sphereOfInfluenceRadius;
     public DataPointsRenderer DPR;
-    public GameObject glyphHighlightSphere;
     public VisualEffect pointCloudRenderer;
+    
+    [Space][Header("Prefab Shperes")] 
+    public GameObject glyphHighlightSphere;
+    public GameObject glyphSelectedSphere;
     
     [Space][Header("Hands")] 
     public Transform rightHandTransform;
@@ -26,6 +30,7 @@ public class GlyphGrapping : MonoBehaviour
     public InputActionReference triggerLeft;
 
     private GameObject _glyphHighlightLatestSphere;
+    private GameObject _glyphSelectedLatestSphere;
     private float middleOfRenderer;
     
     // Start is called before the first frame update
@@ -50,10 +55,10 @@ public class GlyphGrapping : MonoBehaviour
         {
             Destroy(_glyphHighlightLatestSphere);
             Transform pcrTransform = pointCloudRenderer.transform;
-            sphereOfInfluenceRadius = DPR.GetInstanceFromPosition(glyphsInHand[0]).Scale;
+            _sphereOfInfluenceRadius = DPR.GetInstanceFromPosition(glyphsInHand[0]).Scale;
             Vector3 glyphPos = GetGlobalChildPosition(pcrTransform.position, glyphsInHand[0], pcrTransform.rotation, pcrTransform.localScale, middleOfRenderer);
             GameObject highlightSphere = Instantiate(glyphHighlightSphere, glyphPos, pointCloudRenderer.transform.rotation);
-            highlightSphere.transform.localScale *= sphereOfInfluenceRadius;
+            highlightSphere.transform.localScale *= _sphereOfInfluenceRadius+0.06f;
             _glyphHighlightLatestSphere = highlightSphere;
         }
         catch (Exception e)
@@ -92,7 +97,7 @@ public class GlyphGrapping : MonoBehaviour
         Transform pcrTransform = pointCloudRenderer.transform;
         //Debug.Log(_vector3List[0]+ pointCloudRenderer.transform.position +  " -- " + rightHandTransform.position);
         return _vector3List
-            .Where(v => Vector3.Distance(GetGlobalChildPosition(pcrTransform.position, v, pcrTransform.rotation,pcrTransform.localScale, middleOfRenderer), rightHandTransform.position) <= 0.1f)
+            .Where(v => Vector3.Distance(GetGlobalChildPosition(pcrTransform.position, v, pcrTransform.rotation,pcrTransform.localScale, middleOfRenderer), rightHandTransform.position) <= publicSphereOfInfluenceRadius)
             .ToList();
     }
 
@@ -102,7 +107,15 @@ public class GlyphGrapping : MonoBehaviour
         List<Vector3> glyphsInHand = CheckMatches();
         if (glyphsInHand.Count > 0)
         {
-            Debug.Log($"{glyphsInHand[0]} is withing {sphereOfInfluenceRadius} distance from {handPos}");
+            Debug.Log($"{glyphsInHand[0]} is withing {_sphereOfInfluenceRadius} distance from {handPos}");
+            
+            Destroy(_glyphSelectedLatestSphere);
+            Transform pcrTransform = pointCloudRenderer.transform;
+            Vector3 glyphPos = GetGlobalChildPosition(pcrTransform.position, glyphsInHand[0], pcrTransform.rotation, pcrTransform.localScale, middleOfRenderer);
+            GameObject selectedSphere = Instantiate(glyphSelectedSphere, glyphPos, pointCloudRenderer.transform.rotation);
+            selectedSphere.transform.localScale *= _sphereOfInfluenceRadius +0.06f;
+            selectedSphere.transform.SetParent(pointCloudRenderer.gameObject.transform);
+            _glyphSelectedLatestSphere = selectedSphere;
         }
         else
         {
