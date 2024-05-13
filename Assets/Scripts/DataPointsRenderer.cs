@@ -136,7 +136,7 @@ public class DataPointsRenderer : MonoBehaviour
         // adds each instance to a list
         for (int row = 0; row < nRows; row++)
         {
-            Instance newInstance = new Instance(_position[row], _scales[row], _colors[row]);
+            Instance newInstance = new Instance(_position[row], _scales[row], _colors[row], row);
             _instancesList.Add(newInstance);
         }
 
@@ -150,15 +150,33 @@ public class DataPointsRenderer : MonoBehaviour
         public Vector3 Position;
         public float Scale;
         public Color Color;
+        public int ID;
 
-        public Instance(Vector3 pos, float scale, Color color)
+        public Instance(Vector3 pos, float scale, Color color, int id = -1)
         {
             this.Position = pos;
             this.Scale = scale;
             this.Color = color;
+            this.ID = id;
         }
     }
-    
+
+    public string[] FeatureValuesFromID(int id)
+    {
+        int nCollems = _manipulatedDataArray.GetLength(1);
+        string[] returnFeatures = new string[nCollems];
+        for (int collem = 0; collem < nCollems; collem++)
+        {
+            returnFeatures[collem] = _manipulatedDataArray[id, collem];
+        }
+
+        return returnFeatures;
+    }
+
+    public string[] GetHeaders()
+    {
+        return _headers;
+    }
 
     Color RainbowColorFromFloat(float value)
     {
@@ -196,7 +214,8 @@ public class DataPointsRenderer : MonoBehaviour
         //Debug.Log("ERROR - no feature found with that name");
         return -1; // this only returns if faliar to find name
     }
-    
+
+   
     public string[] GetFeatureFromName(string name)
     {
         //first get the location int of the feature based on the name

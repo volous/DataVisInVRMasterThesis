@@ -5,10 +5,13 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
+using TMPro;
 
 
 public class GlyphGrapping : MonoBehaviour
 {
+    public TMP_Text glyphContentArea;
+    
     public float publicSphereOfInfluenceRadius;
     private float _sphereOfInfluenceRadius;
     public DataPointsRenderer DPR;
@@ -32,6 +35,7 @@ public class GlyphGrapping : MonoBehaviour
     private GameObject _glyphHighlightLatestSphere;
     private GameObject _glyphSelectedLatestSphere;
     private float middleOfRenderer;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -107,8 +111,7 @@ public class GlyphGrapping : MonoBehaviour
         List<Vector3> glyphsInHand = CheckMatches();
         if (glyphsInHand.Count > 0)
         {
-            Debug.Log($"{glyphsInHand[0]} is withing {_sphereOfInfluenceRadius} distance from {handPos}");
-            
+
             Destroy(_glyphSelectedLatestSphere);
             Transform pcrTransform = pointCloudRenderer.transform;
             Vector3 glyphPos = GetGlobalChildPosition(pcrTransform.position, glyphsInHand[0], pcrTransform.rotation, pcrTransform.localScale, middleOfRenderer);
@@ -116,10 +119,11 @@ public class GlyphGrapping : MonoBehaviour
             selectedSphere.transform.localScale *= _sphereOfInfluenceRadius +0.06f;
             selectedSphere.transform.SetParent(pointCloudRenderer.gameObject.transform);
             _glyphSelectedLatestSphere = selectedSphere;
+            WriteTextToContent(DPR.GetInstanceFromPosition(glyphsInHand[0]));
         }
         else
         {
-            Debug.Log($"no matches for hand pos {handPos}");
+          
         }
     }
 
@@ -133,5 +137,16 @@ public class GlyphGrapping : MonoBehaviour
     public void SetGlyphsActive(bool state)
     {
         _isGlypsActive = state;
+    }
+
+    void WriteTextToContent(DataPointsRenderer.Instance glyph)
+    {
+        glyphContentArea.text = "";
+        string[] headers = DPR.GetHeaders();
+        string[] featureValues = DPR.FeatureValuesFromID(glyph.ID);
+        for (int i = 0; i < featureValues.Length; i++)
+        {
+            glyphContentArea.text += headers[i] + " = " + featureValues[i] + "\n";
+        }
     }
 }
