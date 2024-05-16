@@ -168,12 +168,12 @@ public class WorldPulling : MonoBehaviour
     {
         Vector3 newRightPos = _setRightPosition - rightController.transform.position;
         Vector3 newLeftPos = _setLeftPosition - leftController.transform.position;
-        Vector3 newAvgPos = ((newRightPos * movementMultiplier) + (newLeftPos * movementMultiplier)) / 2f;
+        Vector3 newAvgPos = (newRightPos + newLeftPos) / 2f;
         newAvgPos *= movementMultiplier;
         objectToRotate.transform.position = _previousLocation - newAvgPos;
     }
 
-    public void RotateRig()
+    public void RotateRig() 
     {
         Quaternion newRot = rightController.transform.rotation * _setRotation;
         objectToRotate.transform.rotation = Quaternion.Slerp(objectToRotate.transform.rotation, newRot, rotationScaler /1000);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class FeatureManipulation : MonoBehaviour
     public float maxSliderCurrentValue;
     public float minSliderCurrentValue;
     
+
     [ContextMenu("Data from DRP")]
     public void DataFromDPR(string name)
     {

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Random = UnityEngine.Random;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 public class DataPointsRenderer : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class DataPointsRenderer : MonoBehaviour
     
     public float size = 1;
     public FeatureObjectsHandeler featureObjectsHandeler;
+    public GlyphGrapping glyphGrapping;
     
     [Header("Dimentions")] 
     public string posX;
@@ -38,10 +41,13 @@ public class DataPointsRenderer : MonoBehaviour
     private Color[] _colors;
     private Material[] _materials;
 
+    private List<Instance> _instancesList;
+
 
     private void Start()
     {
         _isRunning = false;
+        _instancesList = new List<Instance>();
     }
 
     public void SetIsRunning(bool state)
@@ -91,11 +97,12 @@ public class DataPointsRenderer : MonoBehaviour
 
     public void BeginRendering()
     {
+        Stopwatch stopwatch = Stopwatch.StartNew();
         _isRunning = true;
         pointCloudRenderer._vfx.enabled = true;
-        int nRows = _manipulatedDataArray.GetLength(0) -1;
-        int nFeatures = _manipulatedDataArray.GetLength(1)-1;
-        
+        int nRows = _manipulatedDataArray.GetLength(0) - 1;
+
+        // Initialize arrays
         _position = new Vector3[nRows];
         _scales = new float[nRows];
         _meshes = new Mesh[nRows];
@@ -118,51 +125,63 @@ public class DataPointsRenderer : MonoBehaviour
             _scales[row] = (float.Parse(_manipulatedDataArray[row, FeatureBasedOnHeader(scale)]) + 0.05f) * size;
         }
 
-        //Meshes
-        for (int row = 0; row < nRows; row++)
-        {
-            Mesh meshCopy = new Mesh();
-            meshCopy.vertices = _mesh.vertices;
-            meshCopy.triangles = _mesh.triangles;
-            meshCopy.normals = _mesh.normals;
-            meshCopy.uv = _mesh.uv;
-
-            // Scale the vertices of the copied mesh
-            Vector3[] scaledVertices = new Vector3[meshCopy.vertices.Length];
-            for (int i = 0; i < meshCopy.vertices.Length; i++)
-            {
-                scaledVertices[i] = meshCopy.vertices[i] * _scales[row];
-            }
-
-            // Update the vertices of the copied mesh
-            meshCopy.vertices = scaledVertices;
-
-
-            _meshes[row] = meshCopy;
-        }
-
 
         // Colors
         for (int row = 0; row < nRows; row++)
         {
             _colors[row] = RainbowColorFromFloat(float.Parse(_manipulatedDataArray[row, FeatureBasedOnHeader(col)]));
         }
-
-        // Materials
+        
+        
+        // adds each instance to a list
         for (int row = 0; row < nRows; row++)
         {
-            Material nMat = new Material(_material);
-            nMat.color = _colors[row];
-            _materials[row] = nMat;
+            Instance newInstance = new Instance(_position[row], _scales[row], _colors[row], row);
+            _instancesList.Add(newInstance);
         }
-        
+
+        glyphGrapping.ReciveVector3List(_position.ToList());
         pointCloudRenderer.SetParticals(_position, _scales, _colors);
+        
+    }
+    
+    public struct Instance
+    {
+        public Vector3 Position;
+        public float Scale;
+        public Color Color;
+        public int ID;
+
+        public Instance(Vector3 pos, float scale, Color color, int id = -1)
+        {
+            this.Position = pos;
+            this.Scale = scale;
+            this.Color = color;
+            this.ID = id;
+        }
+    }
+
+    public string[] FeatureValuesFromID(int id)
+    {
+        int nCollems = _manipulatedDataArray.GetLength(1);
+        string[] returnFeatures = new string[nCollems];
+        for (int collem = 0; collem < nCollems; collem++)
+        {
+            returnFeatures[collem] = _manipulatedDataArray[id, collem];
+        }
+
+        return returnFeatures;
+    }
+
+    public string[] GetHeaders()
+    {
+        return _headers;
     }
 
     Color RainbowColorFromFloat(float value)
     {
         // Hue goes from 0 to 1, representing the entire color spectrum
-        float hue = value / 2; // devided by 2 becous hue is a circle, so 0 and 1 would be the same color
+        float hue = value / 2; // divided by 2 because hue is a circle, so 0 and 1 would be the same color
 
         // Saturation and value are set to 1 for full color intensity
         float saturation = 1f;
@@ -175,6 +194,7 @@ public class DataPointsRenderer : MonoBehaviour
 
     public void StopRendering()
     {
+        glyphGrapping.SetGlyphsActive(false);
         pointCloudRenderer._vfx.enabled = false;
     }
 
@@ -191,16 +211,17 @@ public class DataPointsRenderer : MonoBehaviour
             }
         }
 
-        Debug.Log("ERROR - no feature found with that name");
+        //Debug.Log("ERROR - no feature found with that name");
         return -1; // this only returns if faliar to find name
     }
-    
+
+   
     public string[] GetFeatureFromName(string name)
     {
         //first get the location int of the feature based on the name
         int location = LoactionFromName(name);
 
-        string[] returnSting = new String[_manipulatedDataArray.GetLength(0)]; // create a new aray the size of the number of instances in the dataset
+        string[] returnSting = new String[_manipulatedDataArray.GetLength(0)]; // create a new array the size of the number of instances in the dataset
         for (int i = 0; i < _manipulatedDataArray.GetLength(0) - 1; i++)
         {
             returnSting[i] = _manipulatedDataArray[i, location]; // set the return list to the values from the full data array
@@ -209,9 +230,24 @@ public class DataPointsRenderer : MonoBehaviour
         return returnSting;
     }
 
+    public Instance GetInstanceFromPosition(Vector3 pos)
+    {
+        List<Instance> filteredList = _instancesList.Where(s => s.Position == pos).ToList();
+        if (filteredList.Count > 0)
+        {
+            return filteredList[0];
+        }
+        else
+        {
+            Debug.Log("No matching instance with " + pos);
+            return new Instance();
+        }
+
+    }
+
     public void ResetFeatureFromName(string name)
     {
-        Debug.Log("Reset " + name);
+        //Debug.Log("Reset " + name);
         //first get the location int of the feature based on the name
         int location = LoactionFromName(name);
 
@@ -223,6 +259,7 @@ public class DataPointsRenderer : MonoBehaviour
 
     public void ChangeFeaturesForName(string name, string[] manipulatedFeatures)
     {
+        //Debug.Log("change for name");
         //first get the location int of the feature based on the name
         int location = LoactionFromName(name);
 
